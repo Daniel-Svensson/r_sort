@@ -1,0 +1,2615 @@
+//
+// User mikaela logged in as mikaela on host se-opt20.swe.mentorg.com created this 
+// Mentor ATPG library from the Synopsys .lib file (c35_CORELIB.lib)
+// on Tue Dec 20 16:35:32 2005
+// using:
+//	syn2ment version $Revision: 2.14a $($State: BETA $) 
+//       built on (sj176dy179.sje.mentorg.com) on Oct 16 2003 at 17:57:38
+//
+// Using the following command line switches:
+//	-f c35_CORELIB.lib -o tmp.atpg 
+//
+// From the platform:
+// 	OS:Linux Release:2.4.21-9.ELsmp  
+//	Version:#1 SMP Thu Jan 8 16:52:31 EST 2004 Architecture:x86_64
+//
+
+//@+ c35_CORELIB.lib(627) - cell(ADD21) - 
+model ADD21(A, B, CO, S) (
+	input(A, B) ()
+	output(CO) (function = B*A ; )
+	output(S) (primitive = _xor( B , A , S) ;)
+)
+
+
+//@+ c35_CORELIB.lib(866) - cell(ADD22) - 
+model ADD22(A, B, CO, S) (
+	input(A, B) ()
+	output(CO) (function = B*A ; )
+	output(S) (primitive = _xor( B , A , S) ;)
+)
+
+
+//@+ c35_CORELIB.lib(1359) - cell(ADD31) - 
+model ADD31(A, B, CI, CO, S) (
+	input(A, B, CI) ()
+	output(CO) (function = CI*B+CI*A+B*A ; )
+	output(S) (primitive = _xor( CI , B , A , S) ;)
+)
+
+
+//@+ c35_CORELIB.lib(1852) - cell(ADD32) - 
+model ADD32(A, B, CI, CO, S) (
+	input(A, B, CI) ()
+	output(CO) (function = CI*B+CI*A+B*A ; )
+	output(S) (primitive = _xor( CI , B , A , S) ;)
+)
+
+
+//@+ c35_CORELIB.lib(2111) - cell(AOI210) - 
+model AOI210(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(A*B+C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(2370) - cell(AOI211) - 
+model AOI211(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(A*B+C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(2864) - cell(AOI2110) - 
+model AOI2110(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(3358) - cell(AOI2111) - 
+model AOI2111(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(3852) - cell(AOI2112) - 
+model AOI2112(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(4111) - cell(AOI212) - 
+model AOI212(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(A*B+C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(4633) - cell(AOI220) - 
+model AOI220(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A+D*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(5155) - cell(AOI221) - 
+model AOI221(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A+D*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(5677) - cell(AOI222) - 
+model AOI222(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A+D*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(6185) - cell(AOI310) - 
+model AOI310(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A*C+D) ; )
+)
+
+
+//@+ c35_CORELIB.lib(6693) - cell(AOI311) - 
+model AOI311(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A*C+D) ; )
+)
+
+
+//@+ c35_CORELIB.lib(7201) - cell(AOI312) - 
+model AOI312(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(B*A*C+D) ; )
+)
+
+
+//@+ c35_CORELIB.lib(7264) - cell(BUF12) - 
+model BUF12(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7327) - cell(BUF15) - 
+model BUF15(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7390) - cell(BUF2) - 
+model BUF2(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7453) - cell(BUF4) - 
+model BUF4(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7516) - cell(BUF6) - 
+model BUF6(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7579) - cell(BUF8) - 
+model BUF8(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(7722) - cell(BUFE10) - 
+model BUFE10(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(7865) - cell(BUFE12) - 
+model BUFE12(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8008) - cell(BUFE15) - 
+model BUFE15(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8151) - cell(BUFE2) - 
+model BUFE2(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8294) - cell(BUFE4) - 
+model BUFE4(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8437) - cell(BUFE6) - 
+model BUFE6(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8580) - cell(BUFE8) - 
+model BUFE8(A, E, Q) (
+	input(A, E) ()
+	inout(Q) ( primitive = _tsh( A , E, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8717) - cell(BUFT10) - 
+model BUFT10(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8854) - cell(BUFT12) - 
+model BUFT12(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(8991) - cell(BUFT15) - 
+model BUFT15(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(9128) - cell(BUFT2) - 
+model BUFT2(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(9265) - cell(BUFT4) - 
+model BUFT4(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(9402) - cell(BUFT6) - 
+model BUFT6(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(9539) - cell(BUFT8) - 
+model BUFT8(A, EN, Q) (
+	input(A, EN) ()
+	inout(Q) ( primitive = _tsl( A , EN, Q);)
+)
+
+
+//@+ c35_CORELIB.lib(9602) - cell(CLKBU12) - 
+model CLKBU12(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9665) - cell(CLKBU15) - 
+model CLKBU15(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9728) - cell(CLKBU2) - 
+model CLKBU2(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9791) - cell(CLKBU4) - 
+model CLKBU4(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9854) - cell(CLKBU6) - 
+model CLKBU6(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9917) - cell(CLKBU8) - 
+model CLKBU8(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(9980) - cell(CLKIN0) - 
+model CLKIN0(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10043) - cell(CLKIN1) - 
+model CLKIN1(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10106) - cell(CLKIN10) - 
+model CLKIN10(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10169) - cell(CLKIN12) - 
+model CLKIN12(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10232) - cell(CLKIN15) - 
+model CLKIN15(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10295) - cell(CLKIN2) - 
+model CLKIN2(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10358) - cell(CLKIN3) - 
+model CLKIN3(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10421) - cell(CLKIN4) - 
+model CLKIN4(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10484) - cell(CLKIN6) - 
+model CLKIN6(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10547) - cell(CLKIN8) - 
+model CLKIN8(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(10768) - cell(DF1) - 
+model DF1(C, D, Q, QN) (
+	input(C, D) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(10989) - cell(DF3) - 
+model DF3(C, D, Q, QN) (
+	input(C, D) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(11446) - cell(DFC1) - 
+model DFC1(C, D, RN, Q, QN) (
+	input(C, D, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(11903) - cell(DFC3) - 
+model DFC3(C, D, RN, Q, QN) (
+	input(C, D, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(12757) - cell(DFCP1) - 
+model DFCP1(C, D, RN, SN, Q, QN) (
+	input(C, D, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(13611) - cell(DFCP3) - 
+model DFCP3(C, D, RN, SN, Q, QN) (
+	input(C, D, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(14003) - cell(DFE1) - 
+model DFE1(C, D, E, Q, QN) (
+	input(C, D, E) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(14394) - cell(DFE3) - 
+model DFE3(C, D, E, Q, QN) (
+	input(C, D, E) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(15186) - cell(DFEC1) - 
+model DFEC1(C, D, E, RN, Q, QN) (
+	input(C, D, E, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(15978) - cell(DFEC3) - 
+model DFEC3(C, D, E, RN, Q, QN) (
+	input(C, D, E, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(17578) - cell(DFECP1) - 
+model DFECP1(C, D, E, RN, SN, Q, QN) (
+	input(C, D, E, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(19178) - cell(DFECP3) - 
+model DFECP3(C, D, E, RN, SN, Q, QN) (
+	input(C, D, E, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(19961) - cell(DFEP1) - 
+model DFEP1(C, D, E, SN, Q, QN) (
+	input(C, D, E, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(20744) - cell(DFEP3) - 
+model DFEP3(C, D, E, SN, Q, QN) (
+	input(C, D, E, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = D*E+!(D*E+!IQ+E*!D) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(21201) - cell(DFP1) - 
+model DFP1(C, D, SN, Q, QN) (
+	input(C, D, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(21658) - cell(DFP3) - 
+model DFP3(C, D, SN, Q, QN) (
+	input(C, D, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(22590) - cell(DFS1) - 
+model DFS1(C, D, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DF1 (C, D, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DF1 (C, D, Q, QN);
+	)
+	input(C, D, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = SD*SE+D*!SE ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(23522) - cell(DFS3) - 
+model DFS3(C, D, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DF3 (C, D, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DF3 (C, D, Q, QN);
+	)
+	input(C, D, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = SD*SE+D*!SE ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(25298) - cell(DFSC1) - 
+model DFSC1(C, D, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFC1 (C, D, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFC1 (C, D, RN, Q, QN);
+	)
+	input(C, D, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(27074) - cell(DFSC3) - 
+model DFSC3(C, D, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFC3 (C, D, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFC3 (C, D, RN, Q, QN);
+	)
+	input(C, D, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(30495) - cell(DFSCP1) - 
+model DFSCP1(C, D, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFCP1 (C, D, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFCP1 (C, D, RN, SN, Q, QN);
+	)
+	input(C, D, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(33916) - cell(DFSCP3) - 
+model DFSCP3(C, D, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFCP3 (C, D, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFCP3 (C, D, RN, SN, Q, QN);
+	)
+	input(C, D, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(35806) - cell(DFSE1) - 
+model DFSE1(C, D, E, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFE1 (C, D, E, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFE1 (C, D, E, Q, QN);
+	)
+	input(C, D, E, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = SE*SD+!SE*E*D+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(37696) - cell(DFSE3) - 
+model DFSE3(C, D, E, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFE3 (C, D, E, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFE3 (C, D, E, Q, QN);
+	)
+	input(C, D, E, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = SE*SD+!SE*E*D+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(41306) - cell(DFSEC1) - 
+model DFSEC1(C, D, E, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEC1 (C, D, E, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEC1 (C, D, E, RN, Q, QN);
+	)
+	input(C, D, E, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(44916) - cell(DFSEC3) - 
+model DFSEC3(C, D, E, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEC3 (C, D, E, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEC3 (C, D, E, RN, Q, QN);
+	)
+	input(C, D, E, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(52031) - cell(DFSECP1) - 
+model DFSECP1(C, D, E, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFECP1 (C, D, E, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFECP1 (C, D, E, RN, SN, Q, QN);
+	)
+	input(C, D, E, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(59146) - cell(DFSECP3) - 
+model DFSECP3(C, D, E, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFECP3 (C, D, E, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFECP3 (C, D, E, RN, SN, Q, QN);
+	)
+	input(C, D, E, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(62736) - cell(DFSEP1) - 
+model DFSEP1(C, D, E, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEP1 (C, D, E, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEP1 (C, D, E, SN, Q, QN);
+	)
+	input(C, D, E, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(66326) - cell(DFSEP3) - 
+model DFSEP3(C, D, E, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEP3 (C, D, E, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :((E*D))+!(!IQ+(E))  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFEP3 (C, D, E, SN, Q, QN);
+	)
+	input(C, D, E, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !SE*E*D+SE*SD+!(SE+!IQ+!SE*E) ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(68102) - cell(DFSP1) - 
+model DFSP1(C, D, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFP1 (C, D, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFP1 (C, D, SN, Q, QN);
+	)
+	input(C, D, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(69878) - cell(DFSP3) - 
+model DFSP3(C, D, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFP3 (C, D, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+		data_in = D ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  DFP3 (C, D, SN, Q, QN);
+	)
+	input(C, D, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = D*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(70155) - cell(DL1) - 
+model DL1(D, GN, Q, QN) (
+	input(D, GN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , , INT_RES_0, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(70432) - cell(DL3) - 
+model DL3(D, GN, Q, QN) (
+	input(D, GN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , , INT_RES_0, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(70924) - cell(DLC1) - 
+model DLC1(D, GN, RN, Q, QN) (
+	input(D, GN, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , INT_RES_0, INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(71416) - cell(DLC3) - 
+model DLC3(D, GN, RN, Q, QN) (
+	input(D, GN, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , INT_RES_0, INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(72288) - cell(DLCP1) - 
+model DLCP1(D, GN, RN, SN, Q, QN) (
+	input(D, GN, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, INT_RES_1, INT_RES_2, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(73160) - cell(DLCP3) - 
+model DLCP3(D, GN, RN, SN, Q, QN) (
+	input(D, GN, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, INT_RES_1, INT_RES_2, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(73777) - cell(DLCPQ1) - 
+model DLCPQ1(D, GN, RN, SN, Q) (
+	input(D, GN, RN, SN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, INT_RES_1, INT_RES_2, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(74394) - cell(DLCPQ3) - 
+model DLCPQ3(D, GN, RN, SN, Q) (
+	input(D, GN, RN, SN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, INT_RES_1, INT_RES_2, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(74723) - cell(DLCQ1) - 
+model DLCQ1(D, GN, RN, Q) (
+	input(D, GN, RN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , INT_RES_0, INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(75052) - cell(DLCQ3) - 
+model DLCQ3(D, GN, RN, Q) (
+	input(D, GN, RN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , INT_RES_0, INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(75544) - cell(DLP1) - 
+model DLP1(D, GN, SN, Q, QN) (
+	input(D, GN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, , INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(76036) - cell(DLP3) - 
+model DLP3(D, GN, SN, Q, QN) (
+	input(D, GN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, , INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(76365) - cell(DLPQ1) - 
+model DLPQ1(D, GN, SN, Q) (
+	input(D, GN, SN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, , INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(76694) - cell(DLPQ3) - 
+model DLPQ3(D, GN, SN, Q) (
+	input(D, GN, SN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( INT_RES_0, , INT_RES_1, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(76873) - cell(DLQ1) - 
+model DLQ1(D, GN, Q) (
+	input(D, GN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , , INT_RES_0, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(77052) - cell(DLQ3) - 
+model DLQ3(D, GN, Q) (
+	input(D, GN) ()
+	output(Q) (function = IQ ; )
+	intern(INT_RES_0) (function = !GN ; )
+	intern( IQ, IQN) ( primitive = _dlat( , , INT_RES_0, D, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(77115) - cell(DLY12) - 
+model DLY12(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(77178) - cell(DLY22) - 
+model DLY22(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(77241) - cell(DLY32) - 
+model DLY32(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(77308) - cell(DLY42) - 
+model DLY42(A, Q) (
+	input(A) ()
+	output(Q) (function = A ; )
+)
+
+
+//@+ c35_CORELIB.lib(77574) - cell(IMAJ30) - 
+model IMAJ30(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(B*A+B*C+A*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(77840) - cell(IMAJ31) - 
+model IMAJ31(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(B*A+B*C+A*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(78106) - cell(IMUX20) - 
+model IMUX20(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = !(A*!S+S*B) ; )
+)
+
+
+//@+ c35_CORELIB.lib(78372) - cell(IMUX21) - 
+model IMUX21(A, B, S, Q) (
+  cell_type = MUX S A B;
+	input(A, B, S) ()
+	output(Q) (function = !(A*!S+S*B) ; )
+)
+
+
+//@+ c35_CORELIB.lib(78638) - cell(IMUX22) - 
+model IMUX22(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = !(A*!S+S*B) ; )
+)
+
+
+//@+ c35_CORELIB.lib(78904) - cell(IMUX23) - 
+model IMUX23(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = !(A*!S+S*B) ; )
+)
+
+
+//@+ c35_CORELIB.lib(79170) - cell(IMUX24) - 
+model IMUX24(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = !(A*!S+S*B) ; )
+)
+
+
+//@+ c35_CORELIB.lib(80270) - cell(IMUX30) - 
+model IMUX30(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(81370) - cell(IMUX31) - 
+model IMUX31(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(82470) - cell(IMUX32) - 
+model IMUX32(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(83570) - cell(IMUX33) - 
+model IMUX33(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(85964) - cell(IMUX40) - 
+model IMUX40(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(88358) - cell(IMUX41) - 
+model IMUX41(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(90752) - cell(IMUX42) - 
+model IMUX42(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = !(A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C) ; )
+)
+
+
+//@+ c35_CORELIB.lib(90815) - cell(INV0) - 
+model INV0(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(90878) - cell(INV1) - 
+model INV1(A, Q) (
+  cell_type = INV;
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(90941) - cell(INV10) - 
+model INV10(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91004) - cell(INV12) - 
+model INV12(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91067) - cell(INV15) - 
+model INV15(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91130) - cell(INV2) - 
+model INV2(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91193) - cell(INV3) - 
+model INV3(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91256) - cell(INV4) - 
+model INV4(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91319) - cell(INV6) - 
+model INV6(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91382) - cell(INV8) - 
+model INV8(A, Q) (
+	input(A) ()
+	output(Q) (function = !A ; )
+)
+
+
+//@+ c35_CORELIB.lib(91799) - cell(JK1) - 
+model JK1(C, J, K, Q, QN) (
+	input(C, J, K) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(92216) - cell(JK3) - 
+model JK3(C, J, K, Q, QN) (
+	input(C, J, K) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(93057) - cell(JKC1) - 
+model JKC1(C, J, K, RN, Q, QN) (
+	input(C, J, K, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(93898) - cell(JKC3) - 
+model JKC3(C, J, K, RN, Q, QN) (
+	input(C, J, K, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(95524) - cell(JKCP1) - 
+model JKCP1(C, J, K, RN, SN, Q, QN) (
+	input(C, J, K, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(97150) - cell(JKCP3) - 
+model JKCP3(C, J, K, RN, SN, Q, QN) (
+	input(C, J, K, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(97991) - cell(JKP1) - 
+model JKP1(C, J, K, SN, Q, QN) (
+	input(C, J, K, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(98832) - cell(JKP3) - 
+model JKP3(C, J, K, SN, Q, QN) (
+	input(C, J, K, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = IQ*!J*!K+J*!K+J*K*!IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(100774) - cell(JKS1) - 
+model JKS1(C, J, K, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JK1 (C, J, K, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JK1 (C, J, K, Q, QN);
+	)
+	input(C, J, K, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(102716) - cell(JKS3) - 
+model JKS3(C, J, K, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JK3 (C, J, K, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JK3 (C, J, K, Q, QN);
+	)
+	input(C, J, K, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , , C, INT_RES_0, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(106398) - cell(JKSC1) - 
+model JKSC1(C, J, K, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKC1 (C, J, K, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKC1 (C, J, K, RN, Q, QN);
+	)
+	input(C, J, K, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(110080) - cell(JKSC3) - 
+model JKSC3(C, J, K, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKC3 (C, J, K, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKC3 (C, J, K, RN, Q, QN);
+	)
+	input(C, J, K, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(117247) - cell(JKSCP1) - 
+model JKSCP1(C, J, K, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKCP1 (C, J, K, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKCP1 (C, J, K, RN, SN, Q, QN);
+	)
+	input(C, J, K, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(124414) - cell(JKSCP3) - 
+model JKSCP3(C, J, K, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKCP3 (C, J, K, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKCP3 (C, J, K, RN, SN, Q, QN);
+	)
+	input(C, J, K, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(128076) - cell(JKSP1) - 
+model JKSP1(C, J, K, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKP1 (C, J, K, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKP1 (C, J, K, SN, Q, QN);
+	)
+	input(C, J, K, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(131738) - cell(JKSP3) - 
+model JKSP3(C, J, K, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKP3 (C, J, K, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(J'*K'*IQ)+(J*K')+(J*K*IQ')  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  JKP3 (C, J, K, SN, Q, QN);
+	)
+	input(C, J, K, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = (IQ*!J*!K+J*!K+J*K*!IQ)*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(132004) - cell(MAJ31) - 
+model MAJ31(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = B*A+B*C+A*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(132270) - cell(MAJ32) - 
+model MAJ32(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = B*A+B*C+A*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(132536) - cell(MUX21) - 
+model MUX21(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = A*!S+S*B ; )
+)
+
+
+//@+ c35_CORELIB.lib(132802) - cell(MUX22) - 
+model MUX22(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = A*!S+S*B ; )
+)
+
+
+//@+ c35_CORELIB.lib(133068) - cell(MUX24) - 
+model MUX24(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = A*!S+S*B ; )
+)
+
+
+//@+ c35_CORELIB.lib(133334) - cell(MUX26) - 
+model MUX26(A, B, S, Q) (
+	input(A, B, S) ()
+	output(Q) (function = A*!S+S*B ; )
+)
+
+
+//@+ c35_CORELIB.lib(134434) - cell(MUX31) - 
+model MUX31(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(135534) - cell(MUX32) - 
+model MUX32(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(136634) - cell(MUX33) - 
+model MUX33(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(137734) - cell(MUX34) - 
+model MUX34(A, B, C, S0, S1, Q) (
+	input(A, B, C, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(140128) - cell(MUX41) - 
+model MUX41(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(142522) - cell(MUX42) - 
+model MUX42(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(144916) - cell(MUX43) - 
+model MUX43(A, B, C, D, S0, S1, Q) (
+	input(A, B, C, D, S0, S1) ()
+	output(Q) (function = A*!S1*!S0+!S1*S0*B+S1*S0*D+S1*!S0*C ; )
+)
+
+
+//@+ c35_CORELIB.lib(145048) - cell(NAND20) - 
+model NAND20(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145180) - cell(NAND21) - 
+model NAND21(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145312) - cell(NAND22) - 
+model NAND22(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145444) - cell(NAND23) - 
+model NAND23(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145576) - cell(NAND24) - 
+model NAND24(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145708) - cell(NAND26) - 
+model NAND26(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(145840) - cell(NAND28) - 
+model NAND28(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(146085) - cell(NAND30) - 
+model NAND30(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(146330) - cell(NAND31) - 
+model NAND31(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(146575) - cell(NAND32) - 
+model NAND32(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(146820) - cell(NAND33) - 
+model NAND33(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(147065) - cell(NAND34) - 
+model NAND34(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(147495) - cell(NAND40) - 
+model NAND40(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(147925) - cell(NAND41) - 
+model NAND41(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(148355) - cell(NAND42) - 
+model NAND42(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(148785) - cell(NAND43) - 
+model NAND43(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*B*A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(148917) - cell(NOR20) - 
+model NOR20(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149049) - cell(NOR21) - 
+model NOR21(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149181) - cell(NOR22) - 
+model NOR22(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149313) - cell(NOR23) - 
+model NOR23(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149445) - cell(NOR24) - 
+model NOR24(A, B, Q) (
+	input(A, B) ()
+	output(Q) (function = !(B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149690) - cell(NOR30) - 
+model NOR30(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(149935) - cell(NOR31) - 
+model NOR31(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(150180) - cell(NOR32) - 
+model NOR32(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(150425) - cell(NOR33) - 
+model NOR33(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(150891) - cell(NOR40) - 
+model NOR40(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(151357) - cell(NOR41) - 
+model NOR41(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(151823) - cell(NOR42) - 
+model NOR42(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D+C+B+A) ; )
+)
+
+
+//@+ c35_CORELIB.lib(152082) - cell(OAI210) - 
+model OAI210(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*(A+B)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(152341) - cell(OAI211) - 
+model OAI211(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*(A+B)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(152817) - cell(OAI2110) - 
+model OAI2110(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(153293) - cell(OAI2111) - 
+model OAI2111(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(153769) - cell(OAI2112) - 
+model OAI2112(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*C*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(154028) - cell(OAI212) - 
+model OAI212(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (function = !(C*(A+B)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(154550) - cell(OAI220) - 
+model OAI220(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !((D+C)*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(155072) - cell(OAI221) - 
+model OAI221(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !((D+C)*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(155594) - cell(OAI222) - 
+model OAI222(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !((D+C)*(B+A)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(156102) - cell(OAI310) - 
+model OAI310(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*(B+A+C)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(156610) - cell(OAI311) - 
+model OAI311(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*(B+A+C)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(157118) - cell(OAI312) - 
+model OAI312(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (function = !(D*(B+A+C)) ; )
+)
+
+
+//@+ c35_CORELIB.lib(157402) - cell(TFC1) - 
+model TFC1(C, RN, Q, QN) (
+	input(C, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(157686) - cell(TFC3) - 
+model TFC3(C, RN, Q, QN) (
+	input(C, RN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(158191) - cell(TFCP1) - 
+model TFCP1(C, RN, SN, Q, QN) (
+	input(C, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(158696) - cell(TFCP3) - 
+model TFCP3(C, RN, SN, Q, QN) (
+	input(C, RN, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(159119) - cell(TFEC1) - 
+model TFEC1(C, RN, T, Q, QN) (
+	input(C, RN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(159542) - cell(TFEC3) - 
+model TFEC3(C, RN, T, Q, QN) (
+	input(C, RN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(160385) - cell(TFECP1) - 
+model TFECP1(C, RN, SN, T, Q, QN) (
+	input(C, RN, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(161228) - cell(TFECP3) - 
+model TFECP3(C, RN, SN, T, Q, QN) (
+	input(C, RN, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(161651) - cell(TFEP1) - 
+model TFEP1(C, SN, T, Q, QN) (
+	input(C, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(162074) - cell(TFEP3) - 
+model TFEP3(C, SN, T, Q, QN) (
+	input(C, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = T*!IQ+IQ*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(162358) - cell(TFP1) - 
+model TFP1(C, SN, Q, QN) (
+	input(C, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(162642) - cell(TFP3) - 
+model TFP3(C, SN, Q, QN) (
+	input(C, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !IQ ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(163569) - cell(TFSC1) - 
+model TFSC1(C, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFC1 (C, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFC1 (C, RN, Q, QN);
+	)
+	input(C, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(164496) - cell(TFSC3) - 
+model TFSC3(C, RN, SD, SE, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFC3 (C, RN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFC3 (C, RN, Q, QN);
+	)
+	input(C, RN, SD, SE) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(166220) - cell(TFSCP1) - 
+model TFSCP1(C, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFCP1 (C, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFCP1 (C, RN, SN, Q, QN);
+	)
+	input(C, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(167945) - cell(TFSCP3) - 
+model TFSCP3(C, RN, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFCP3 (C, RN, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFCP3 (C, RN, SN, Q, QN);
+	)
+	input(C, RN, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(169679) - cell(TFSEC1) - 
+model TFSEC1(C, RN, SD, SE, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEC1 (C, RN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEC1 (C, RN, T, Q, QN);
+	)
+	input(C, RN, SD, SE, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(171413) - cell(TFSEC3) - 
+model TFSEC3(C, RN, SD, SE, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEC3 (C, RN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEC3 (C, RN, T, Q, QN);
+	)
+	input(C, RN, SD, SE, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !RN ; )
+	intern(INT_RES_1) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( , INT_RES_0, C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(174818) - cell(TFSECP1) - 
+model TFSECP1(C, RN, SD, SE, SN, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFECP1 (C, RN, SN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFECP1 (C, RN, SN, T, Q, QN);
+	)
+	input(C, RN, SD, SE, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(178223) - cell(TFSECP3) - 
+model TFSECP3(C, RN, SD, SE, SN, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFECP3 (C, RN, SN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :(T IQ' + T' IQ)  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFECP3 (C, RN, SN, T, Q, QN);
+	)
+	input(C, RN, SD, SE, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !RN ; )
+	intern(INT_RES_2) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, INT_RES_1, C, INT_RES_2, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(179983) - cell(TFSEP1) - 
+model TFSEP1(C, SD, SE, SN, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :T IQ' + T' IQ  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEP1 (C, SN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :T IQ' + T' IQ  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEP1 (C, SN, T, Q, QN);
+	)
+	input(C, SD, SE, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(181743) - cell(TFSEP3) - 
+model TFSEP3(C, SD, SE, SN, T, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :T ^ IQ  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEP3 (C, SN, T, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :T ^ IQ  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFEP3 (C, SN, T, Q, QN);
+	)
+	input(C, SD, SE, SN, T) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = SE*SD+!SE*T*!IQ+IQ*!SE*!T ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(182670) - cell(TFSP1) - 
+model TFSP1(C, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFP1 (C, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFP1 (C, SN, Q, QN);
+	)
+	input(C, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(183597) - cell(TFSP3) - 
+model TFSP3(C, SD, SE, SN, Q, QN) (
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFP3 (C, SN, Q, QN);
+	)
+	scan_definition (
+		type = mux_scan ;
+	//	data_in = INVALID-data_in; // FIX THIS :IQ'  ;
+		scan_in = SD ;
+		scan_out = Q,QN ;
+		scan_enable = SE ;
+		non_scan_model =  TFP3 (C, SN, Q, QN);
+	)
+	input(C, SD, SE, SN) ()
+	output(Q) (function = IQ ; )
+	output(QN) (function = IQN ; )
+	intern(INT_RES_0) (function = !SN ; )
+	intern(INT_RES_1) (function = !IQ*!SE+SE*SD ; )
+	intern( IQ, IQN) ( primitive = _dff( INT_RES_0, , C, INT_RES_1, IQ, IQN); )
+)
+
+
+//@+ c35_CORELIB.lib(183743) - cell(XNR20) - 
+model XNR20(A, B, Q) (
+	input(A, B) ()
+	intern(INT_RES_0) (primitive = _xor( B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(183889) - cell(XNR21) - 
+model XNR21(A, B, Q) (
+	input(A, B) ()
+	intern(INT_RES_0) (primitive = _xor( B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(184035) - cell(XNR22) - 
+model XNR22(A, B, Q) (
+	input(A, B) ()
+	intern(INT_RES_0) (primitive = _xor( B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(184343) - cell(XNR30) - 
+model XNR30(A, B, C, Q) (
+	input(A, B, C) ()
+	intern(INT_RES_0) (primitive = _xor( C , B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(184651) - cell(XNR31) - 
+model XNR31(A, B, C, Q) (
+	input(A, B, C) ()
+	intern(INT_RES_0) (primitive = _xor( C , B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(185313) - cell(XNR40) - 
+model XNR40(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	intern(INT_RES_0) (primitive = _xor( D , C , B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(185975) - cell(XNR41) - 
+model XNR41(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	intern(INT_RES_0) (primitive = _xor( D , C , B , A , INT_RES_0) ;)
+	output(Q) (function = !INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(186121) - cell(XOR20) - 
+model XOR20(A, B, Q) (
+	input(A, B) ()
+	output(Q) (primitive = _xor( B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(186267) - cell(XOR21) - 
+model XOR21(A, B, Q) (
+	input(A, B) ()
+	output(Q) (primitive = _xor( B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(186413) - cell(XOR22) - 
+model XOR22(A, B, Q) (
+	input(A, B) ()
+	output(Q) (primitive = _xor( B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(186721) - cell(XOR30) - 
+model XOR30(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (primitive = _xor( C , B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(187029) - cell(XOR31) - 
+model XOR31(A, B, C, Q) (
+	input(A, B, C) ()
+	output(Q) (primitive = _xor( C , B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(187691) - cell(XOR40) - 
+model XOR40(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (primitive = _xor( D , C , B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(188353) - cell(XOR41) - 
+model XOR41(A, B, C, D, Q) (
+	input(A, B, C, D) ()
+	output(Q) (primitive = _xor( D , C , B , A , Q) ;)
+)
+
+
+//@+ c35_CORELIB.lib(188366) - cell(BUSHD) - 
+model BUSHD(A) (
+	inout(A) (
+		bus_keeper=zhold;
+		primitive = _tiez(A);)
+)
+
+
+//@+ c35_CORELIB.lib(188376) - cell(TIE0) - 
+model TIE0(Q) (
+	intern(INT_RES_0) (primitive = _tie0(INT_RES_0);)
+	output(Q) (function = INT_RES_0 ; )
+)
+
+
+//@+ c35_CORELIB.lib(188386) - cell(TIE1) - 
+model TIE1(Q) (
+	intern(INT_RES_0) (primitive = _tie1(INT_RES_0);)
+	output(Q) (function = INT_RES_0 ; )
+)
+
