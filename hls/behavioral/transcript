@@ -1,67 +1,4 @@
 # reading /home/leoko805/TDTS01/hls/behavioral/behavioral.mpf
-# Load canceled
-view source
-# .source
-open r_sort.vhd
-# file9
-vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/behavioral/r_sort.vhd}
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-# notepad /home/leoko805/TDTS01/hls/behavioral/workbench.vhd -edit 
-# Build procedure for project "/home/leoko805/TDTS01/hls/behavioral/behavioral.mpf" undefined.
-# Need to Compile and Add_to_Library source files from Edit_Project menu.
-vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/behavioral/workbench.vhd}
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Changes written to /home/leoko805/TDTS01/hls/behavioral/behavioral.mpf 
-# Modified /home/leoko805/TDTS01/hls/behavioral/behavioral.mpf
-vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/behavioral/r_sort.vhd}
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-# Changes written to /home/leoko805/TDTS01/hls/behavioral/behavioral.mpf 
-# notepad /home/leoko805/TDTS01/hls/behavioral/build_work.do -edit 
-#  
-# Building Library work  
-#  
-do /home/leoko805/TDTS01/hls/behavioral/build_work.do
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-view signals
-# .signals
-view process
-# .process
-view wave
-# .wave
-vsim work.workbench(sort_test)
 # vsim work.workbench(sort_test) 
 # //  ModelSim SE/EE 5.4d Sep 15 2000 SunOS 5.10
 # //
@@ -78,50 +15,27 @@ vsim work.workbench(sort_test)
 # Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../ieee.numeric_bit(body)
 # Loading work.workbench(sort_test)
 # Loading work.r_sort(high_level)
-run -all
-run
-# Add Signal /workbench/test_input 
-when -label /workbench/test_input /workbench/test_input {echo "Break on /workbench/test_input" ; stop}
-add wave /workbench/test_input
-add wave /workbench/output
-add wave /workbench/data_ready
-add wave /workbench/zero
-run 10 ns
-run 1 ms
-#  
-# Building Library work  
-#  
-do /home/leoko805/TDTS01/hls/behavioral/build_work.do
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-run 1 ms
-run 1 ns
-restart -f
+# Loading work.clock_gen(behavioral)
+vsim work.workbench(sort_test)
+# vsim work.workbench(sort_test) 
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../std.standard
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../ieee.std_logic_1164(body)
+# Loading work.r_sort_pkg
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../ieee.numeric_bit(body)
 # Loading work.workbench(sort_test)
 # Loading work.r_sort(high_level)
-run 1 ms
-# Break on /workbench/test_input 
-# Simulation stop requested
-run -continue
-# Break on /workbench/test_input 
-# Simulation stop requested
+# Loading work.clock_gen(behavioral)
 #  
 # Building Library work  
 #  
 do /home/leoko805/TDTS01/hls/behavioral/build_work.do
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
 # Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
 # -- Loading package standard
 # -- Compiling entity workbench
@@ -130,103 +44,23 @@ do /home/leoko805/TDTS01/hls/behavioral/build_work.do
 # -- Loading package numeric_bit
 # -- Compiling architecture sort_test of workbench
 # -- Loading entity r_sort
+# -- Loading entity clock_gen
 # Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
 # -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-restart -f
+# -- Compiling entity clock_gen
+# -- Compiling architecture behavioral of clock_gen
+view *
+# .structure .signals .variables .process .source .wave .list .dataflow
+vsim work.workbench(sort_test)
+# vsim work.workbench(sort_test) 
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../std.standard
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../ieee.std_logic_1164(body)
+# Loading work.r_sort_pkg
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../ieee.numeric_bit(body)
 # Loading work.workbench(sort_test)
 # Loading work.r_sort(high_level)
-run 1.1ms
-# Break on /workbench/test_input 
-# Simulation stop requested
-run -next
-restart -f
-run 1.1ms
-# Break on /workbench/test_input 
-# Simulation stop requested
-run -continue
-# Break on /workbench/test_input 
-# Simulation stop requested
-run 1ms
-restart -f
-#  
-# Building Library work  
-#  
-do /home/leoko805/TDTS01/hls/behavioral/build_work.do
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-#  
-# Building Library work  
-#  
-do /home/leoko805/TDTS01/hls/behavioral/build_work.do
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-restart -f
-# Loading work.workbench(sort_test)
-# Loading work.r_sort(high_level)
-# Warning in wave window restart:  No objects found matching "/workbench/zero" 
-run 2 ms
-# Break on /workbench/test_input 
-# Simulation stop requested
-run -continue
-# Break on /workbench/test_input 
-# Simulation stop requested
-run -continue
-#  
-# Building Library work  
-#  
-do /home/leoko805/TDTS01/hls/behavioral/build_work.do
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading entity r_sort
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling package r_sort_pkg
-# -- Loading package r_sort_pkg
-# -- Compiling entity r_sort
-# -- Compiling architecture high_level of r_sort
-restart -f
-# Loading work.workbench(sort_test)
-# Loading work.r_sort(high_level)
-run 
-# Break on /workbench/test_input 
-# Simulation stop requested
-cont
-destroy .signals
-quit
+# Loading work.clock_gen(behavioral)
+add wave -r /*
+run 300 ns
+run 500 ns
+destroy .wave

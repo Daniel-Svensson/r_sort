@@ -17,6 +17,17 @@ architecture sort_test of workbench is
 		);
   end component;
 
+  component CLOCK_GEN
+    generic (
+        CLOCK_INTERVAL : TIME;  -- Clock pulse interval
+        CLOCK_CYCLES : INTEGER --Total number of clock cycles
+        );
+
+    port (
+      CLK_OUT : out bit       -- The clock pulse output
+      );
+  end component;
+
   signal test_input : NUM_ARRAY;        -- test data
   signal output : NUM_ARRAY;            -- output
   signal data_ready : bit;              -- set when sorter is done
@@ -36,9 +47,12 @@ begin  -- sort_test
     rst,
     data_ready,
     output);
+
+  clock_generator : CLOCK_GEN
+    generic map (50 ns, 10)
+    port map (clk);
                 
 
-  
 
 end sort_test;
 

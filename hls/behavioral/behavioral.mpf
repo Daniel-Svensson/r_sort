@@ -267,6 +267,7 @@ libhm = $MODEL_TECH/libhm.sl
 ; libsfi = <sfi_dir>/lib/pcnt/lm_sfi.dll
 [project]
 Work_Libs = work
-Src_Files = {$MODELSIM_PROJECT/r_sort.vhdl} {$MODELSIM_PROJECT/r_sort.vhd} {$MODELSIM_PROJECT/workbench.vhd}
+Src_Files = {$MODELSIM_PROJECT/r_sort.vhdl} {$MODELSIM_PROJECT/r_sort.vhd} {$MODELSIM_PROJECT/workbench.vhd} {$MODELSIM_PROJECT/clock_gen.vhd}
 work_script = $MODELSIM_PROJECT/build_work.do
 Cur_Top_DUs = work.workbench(sort_test)
+Top_DUs = *NONE*
