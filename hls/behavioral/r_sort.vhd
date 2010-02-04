@@ -64,7 +64,7 @@ wait on CLK;
         
         --sort numbers into buckets
         bucketize: for i in 0 to ARRAY_LEN-1 loop
-          if( temp(i)(significant_bit) <= '0' ) then
+          if( temp(i)(significant_bit) = '0' ) then
             bucket_0(bucket_0_idx) := temp(i);
             bucket_0_idx := bucket_0_idx + 1;
           else
