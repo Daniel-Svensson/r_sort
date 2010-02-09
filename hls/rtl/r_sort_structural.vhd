@@ -4,100 +4,139 @@ use ieee.std_logic_1164.all;
 
 package R_SORT_PKG is
     constant DATA_SIZE : integer := 4;   -- Data bits
-    constant ARRAY_LEN : integer := 4;  -- Size of array
-    
+    constant ARRAY_LEN : integer := 4;  -- Size of array    
 
-    type NUM is array(DATA_SIZE-1 downto 0) of BIT;
---    type NUM is range 0 to 15;
---  subtype NUM is integer  0 to 15;     -- 4 bits
-  type NUM_ARRAY is array (0 to ARRAY_LEN-1) of NUM;  -- input data
+  subtype NUM is std_logic_vector(DATA_SIZE -1 downto 0);
+  type NUM_ARRAY is array (0 to ARRAY_LEN-1) of NUM;
+    
 end;
+
+library ieee;
+use ieee.std_logic_1164.all;
 use Work.R_SORT_PKG.all;
  
 
 entity R_SORT is
   
   port (
-    A   : in  NUM_ARRAY;   -- unsorted input array
-    CLK : in  BIT;                                    -- clock signal
-    RST : in  BIT;                                    -- async reset signal
-    DR  : out BIT;                                    -- data ready output bit
-    S   : out NUM_ARRAY  -- sorted output array
-		);
+    A   : in NUM;   -- unsorted input array
+    CLK : in  std_logic;  -- clock signal
+    RST : in  std_logic;  -- async reset signal
+    DR  : out std_logic;  -- data ready output bit
+    S   : out NUM  -- sorted output array
+	);
 
 end R_SORT;
 
 
-architecture HIGH_LEVEL of R_SORT is
+architecture R_SORT_RTL of R_SORT is
 
- signal temp : NUM_ARRAY;               -- for simulation
   
-begin  -- HIGH_LEVEL
+  -----------------------------------------------------------------------------
+  -- The incrementer
+  -----------------------------------------------------------------------------
+  component  add_one
 
-  S <= temp;
+  generic (
+    delay : TIME);
+
+  port (
+    input  : in  std_logic_vector;      -- input to be incremented
+    output : out std_logic_vector);     -- the incremented value
   
-  P_MAIN : process
---    variable temp : NUM_ARRAY;  -- internal storage
-    variable bucket_0 : NUM_ARRAY;  -- internal storage
-    variable bucket_0_idx : integer := 0;  -- where to insert next data
-    variable bucket_1 : NUM_ARRAY;  -- internal storage
-    variable bucket_1_idx : integer := 0;  -- where to insert next data
+  end component;
+  -----------------------------------------------------------------------------
+  -- Register
+  -----------------------------------------------------------------------------
+  component reg
+  
+    generic (
+      delay : TIME);
+
+    port (
+      input  : in  std_logic_vector;      -- input to be incremented
+      output : out std_logic_vector;
+      LD     : in  std_logic;
+      RST    : in  std_logic;
+      CLK    : in  std_logic);     -- the incremented value
+  
+  end component;
+  -----------------------------------------------------------------------------
+  -- RAM
+  -----------------------------------------------------------------------------
+   component ram
+
+     generic (
+       delay : TIME);
+
+     port (
+       LD     : in  std_logic;      -- input to be incremented
+       RST    : in  std_logic;
+       CLK    : in  std_logic;
+       OE     : in  std_logic;
+       address: in  std_logic_vector;
+       data   : inout std_logic_vector);
+   end component;
     
-    constant num_digits : integer := DATA_SIZE;  -- Num significant bits
+  -----------------------------------------------------------------------------
+  -- DEMUX BIT
+  -----------------------------------------------------------------------------
+  component demux_bit
+    generic (
+      delay : TIME);
 
-    variable temp_dest : integer;       -- When merging used to know where to place the data
-  begin
-wait on CLK;
-    if( rst = '1') then
-      DR <= '0';
-    else
-      --initialize numbers
-      temp <= A;
-      DR <= '0';
+    port (
+      input     : in  std_logic_vector;
+      output    : out std_logic;
+      bit_select: in  std_logic_vector);
+  end component;
 
-      --sort all
-      sort_all: for significant_bit in  0 to DATA_SIZE - 1 loop
+  -----------------------------------------------------------------------------
+  -- Demux vector
+  -----------------------------------------------------------------------------
+  component demux_vector
+     generic (
+    data_size : INTEGER;
+    delay : TIME);
+  
+     port (
+       IN0,IN1,IN2,IN3: in std_logic_vector;
+       output       : out std_logic_vector;
+       vector_select: in std_logic_vector);
+  end component;
 
-        wait on CLK;                    -- To be able to see each step in simulation
-        bucket_0_idx := 0;
-        bucket_1_idx := 0;
-        
-        --sort numbers into buckets
-        bucketize: for i in 0 to ARRAY_LEN-1 loop
-          if( temp(i)(significant_bit) = '0' ) then
-            bucket_0(bucket_0_idx) := temp(i);
-            bucket_0_idx := bucket_0_idx + 1;
-          else
-            bucket_1(bucket_1_idx) := temp(i);
-            bucket_1_idx := bucket_1_idx + 1;     
-          end if;                 
-        end loop bucketize;  -- i
 
-        
-        --merge back into temp
-        temp_dest := 0;
+  -----------------------------------------------------------------------------
+  -- Internal signals
+  -----------------------------------------------------------------------------
+  subtype INDEX_TYPE is std_logic_vector(0 to DATA_SIZE-1);  -- Used to index into the data arrays
+  signal TMP_IDX_PLUS_1 : INDEX_TYPE := (others => 'X');  -- TMP_IDX + 1
+  signal TMP_IDX : INDEX_TYPE;          -- TMP_IDX value
+  signal TMP_MAX_IDX : std_logic := 'X';    -- 1 if TMP_IDX == max index
+  signal TMP_IDX_LD : std_logic := 'X';  -- Increment TMP_IDX
+  
+  signal DATA : NUM;                    -- the databuss
 
-        --copy from bucket 0
-        for i_0 in 0 to bucket_0_idx - 1 loop
-          temp(temp_dest) <= bucket_0(i_0);
-          temp_dest := temp_dest +1;
-        end loop;  -- i_0
 
-        --copy from bucket 1
-        for i_1 in 0 to bucket_1_idx - 1 loop
-          temp(temp_dest) <= bucket_1(i_1);
-        temp_dest := temp_dest +1;  
-        end loop;  -- i_0
-      
-      end loop sort_all;  -- significant_digit
-      
-      --Data in temp should be sorted, output it
-    --  S <= temp;
-      DR <= '1';
-    end if;
-        
-    wait on CLK;
-  end process P_MAIN;
 
-end HIGH_LEVEL;
+  constant REG_DELAY : TIME  := 1 us;   -- default reg delay
+  constant RAM_DELAY : TIME  := 5 us;   -- default reg delay
+
+  
+  
+begin  -- HIGH_LEVEL2
+
+  -- TMP_IDX
+  R_TMP_IDX: reg
+    generic map (delay => REG_DELAY)
+    port map (input => TMP_IDX_PLUS_1,
+              output => TMP_IDX,
+              LD => TMP_IDX_LD,
+              clk => clk,
+              rst => rst);
+
+  
+
+
+end R_SORT_RTL;
 
