@@ -1,0 +1,228 @@
+cd /home/leoko805/TDTS01/hls/behavioral
+# reading /home/leoko805/TDTS01/hls/behavioral/behavioral.mpf
+# Load canceled
+# Modifying MODELSIM environment variable
+cd /home/leoko805/TDTS01/hls/rtl
+# reading /home/leoko805/TDTS01/hls/rtl/rtl.mpf
+# ERROR: Could not open library work at work: No such file or directory
+# Load canceled
+cd /home/leoko805/TDTS01/hls/rtl
+# reading modelsim.ini
+vlib work
+# reading /home/leoko805/TDTS01/hls/rtl/rtl.mpf
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/clock_gen.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity clock_gen
+# -- Compiling architecture behavioral of clock_gen
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/primitives.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity and2
+# -- Compiling architecture df of and2
+# -- Compiling entity buf
+# -- Compiling architecture alg of buf
+# -- Compiling entity full_adder
+# -- Compiling architecture df of full_adder
+# -- Compiling entity four_to_1_mux
+# -- Compiling architecture df of four_to_1_mux
+# -- Compiling entity two_to_4_dec
+# -- Compiling architecture alg of two_to_4_dec
+# -- Compiling entity four_to_2_enc
+# -- Compiling architecture df of four_to_2_enc
+# -- Compiling entity shifter
+# -- Compiling architecture alg of shifter
+# -- Compiling package prims
+# -- Compiling package body prims
+# -- Loading package prims
+# -- Loading package prims
+# -- Compiling entity alu
+# -- Compiling architecture alg of alu
+# -- Compiling entity reg
+# -- Compiling architecture df of reg
+# -- Compiling entity latch
+# -- Compiling architecture dflow of latch
+# -- Compiling entity shiftreg
+# -- Compiling architecture df of shiftreg
+# -- Compiling entity counter
+# -- Compiling architecture alg of counter
+# -- Compiling entity ram
+# -- Compiling architecture simple of ram
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/workbench.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity workbench
+# -- Loading package std_logic_1164
+# -- Loading package r_sort_pkg
+# -- Loading package numeric_bit
+# -- Compiling architecture sort_test of workbench
+# -- Loading entity r_sort
+# -- Loading entity clock_gen
+# Changes written to /home/leoko805/TDTS01/hls/rtl/rtl.mpf 
+#  
+# Building Library work  
+#  
+do /home/leoko805/TDTS01/hls/rtl/build_work_1.do
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity clock_gen
+# -- Compiling architecture behavioral of clock_gen
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity and2
+# -- Compiling architecture df of and2
+# -- Compiling entity buf
+# -- Compiling architecture alg of buf
+# -- Compiling entity full_adder
+# -- Compiling architecture df of full_adder
+# -- Compiling entity four_to_1_mux
+# -- Compiling architecture df of four_to_1_mux
+# -- Compiling entity two_to_4_dec
+# -- Compiling architecture alg of two_to_4_dec
+# -- Compiling entity four_to_2_enc
+# -- Compiling architecture df of four_to_2_enc
+# -- Compiling entity shifter
+# -- Compiling architecture alg of shifter
+# -- Compiling package prims
+# -- Compiling package body prims
+# -- Loading package prims
+# -- Loading package prims
+# -- Compiling entity alu
+# -- Compiling architecture alg of alu
+# -- Compiling entity reg
+# -- Compiling architecture df of reg
+# -- Compiling entity latch
+# -- Compiling architecture dflow of latch
+# -- Compiling entity shiftreg
+# -- Compiling architecture df of shiftreg
+# -- Compiling entity counter
+# -- Compiling architecture alg of counter
+# -- Compiling entity ram
+# -- Compiling architecture simple of ram
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Compiling entity workbench
+# -- Loading package std_logic_1164
+# -- Loading package r_sort_pkg
+# -- Loading package numeric_bit
+# -- Compiling architecture sort_test of workbench
+# -- Loading entity r_sort
+# -- Loading entity clock_gen
+vsim +typdelays -multisource_delay latest work.workbench(sort_test)
+# vsim +typdelays -multisource_delay latest work.workbench(sort_test) 
+# //  ModelSim SE/EE 5.4d Sep 15 2000 SunOS 5.10
+# //
+# //  Copyright (c) Mentor Graphics Corporation, 1982-2000, All Rights Reserved.
+# //                       UNPUBLISHED, LICENSED SOFTWARE.
+# //            CONFIDENTIAL AND PROPRIETARY INFORMATION WHICH IS THE
+# //          PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS.
+# //
+# //  Copyright (c) Model Technology Incorporated 1990-2000, All Rights Reserved.
+# //
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../std.standard
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_1164(body)
+# Loading work.r_sort_pkg
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.numeric_bit(body)
+# Loading work.workbench(sort_test)
+# Loading work.r_sort(high_level)
+# Loading work.clock_gen(behavioral)
+view wave
+# .wave
+view signals
+# .signals
+run 1 us
+write format wave -window .wave /home/leoko805/TDTS01/hls/rtl/wave.do
+compile r_sort_	structural.vhd
+# couldn't execute "/sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/structural.vhd": no such file or directory
+compile r_sort_structural.vhd
+# no value given for parameter "cmd" to "compile"
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(10): near "std_logic_vector":syntax error
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(67): No feasible entries for infix op: "="
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(67): Type error resolving infix expression.
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(102): VHDL Compiler exiting
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(10): near "is": expecting: ':'
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(10): near ";": expecting: IS
+# /sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/vcom failed.
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(14): Bad type name
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(11): Variable declaration (num) not allowed in this region.
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(15): VHDL Compiler exiting
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(11): near ":": expecting: IS
+# /sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/vcom failed.
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(68): No feasible entries for infix op: "="
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(68): Type error resolving infix expression.
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(103): VHDL Compiler exiting
+# /sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/vcom failed.
+vcom -reportprogress 300 -work work {/home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd}
+# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling package r_sort_pkg
+# -- Loading package r_sort_pkg
+# -- Compiling entity r_sort
+# -- Compiling architecture high_level of r_sort
+# ERROR: /home/leoko805/TDTS01/hls/rtl/r_sort_structural.vhd(68): near "=":syntax error
+# /sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/vcom failed.
+quit
