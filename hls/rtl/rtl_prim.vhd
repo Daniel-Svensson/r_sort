@@ -110,7 +110,6 @@ use ieee.std_logic_unsigned.all;
 entity demux_vector is
   
   generic (
-    data_size : INTEGER;
     delay : TIME);
   
   port (
@@ -119,3 +118,21 @@ entity demux_vector is
     output       : out std_logic_vector;
     vector_select: in std_logic_vector);
 end demux_vector;
+
+-------------------------------------------------------------------------------
+-- MUX BIT
+-------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity mux_bit is 
+  generic (
+    delay : TIME);
+  
+  port (
+    input     : in  std_logic;
+    output    : out std_logic_vector;
+    bit_select: in  std_logic_vector);
+end mux_bit;
+  
