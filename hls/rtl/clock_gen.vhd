@@ -1,3 +1,7 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+use IEEE.numeric_bit.all;
+
 entity CLOCK_GEN is
 
 generic (
@@ -6,13 +10,13 @@ generic (
   );
   
 port (
-  CLK_OUT : out bit       -- The clock pulse output
+  CLK_OUT : out std_logic       -- The clock pulse output
   );
     
 end CLOCK_GEN;
 
 architecture BEHAVIORAL of CLOCK_GEN is
-  signal stopped : bit := '0';
+  signal stopped : std_logic := '0';
 begin  -- BEHAVIORAL
 CLK_MAIN : process
   begin

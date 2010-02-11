@@ -80,7 +80,7 @@ architecture R_SORT_RTL of R_SORT is
        LD     : in  std_logic;      -- input to be incremented
        RST    : in  std_logic;
        CLK    : in  std_logic;
-       OE     : in  std_logic;
+       CS     : in  std_logic;
        address: in  std_logic_vector;
        data   : inout std_logic_vector);
    end component;
@@ -124,7 +124,43 @@ architecture R_SORT_RTL of R_SORT is
        vector_select: in std_logic_vector);
   end component;
 
+  -----------------------------------------------------------------------------
+  -- FSM
+  -----------------------------------------------------------------------------
+  component FSM
+  port (
+    
+    TMP_MAX : in std_logic; 
+    CURRENT_S_BIT : in std_logic;
+    LAST_BIT : in std_logic;            -- Is the significant bit the last
+    IDX_0_DONE : in std_logic; -- True when all IDX index the last number in B0
+   
+    TMP_IDX_INC : out std_logic;         -- True if TMP_IDX should increment
 
+    TMP_ENABLE : out std_logic;         -- Chips select for TMP RAM
+    TMP_LD : out std_logic;             -- '1' to load ram if enabled, '0' write
+
+    IN_REG_OE : out std_logic;
+    OUT_REG_LD : out std_logic;
+
+    DR : out std_logic;
+
+    REG_INC : out std_logic;            -- Increment selected reg
+    REG_SELECT : out std_logic_vector(1 downto 0);  -- Which reg to select
+    -- 00 = B0_IDX
+    -- 01 = B1_IDX
+    -- 10 = B_IDX
+    -- 11 = S_BIT
+
+    
+    B0_ENABLE : out std_logic;          -- True if B_LD, B_OE should affect B0
+    B1_ENABLE : out std_logic;          -- True if B_LD, B_OE should affect B1
+    B_LD : out std_logic;               -- Load the enabled buckets
+
+    CLK : in  std_logic;                                    -- clock signal
+    RST : in  std_logic                                    -- async reset signal
+    );
+  end component;
   -----------------------------------------------------------------------------
   -- Internal signals
   ----------------------------------------------------------------------------- 
@@ -140,18 +176,17 @@ architecture R_SORT_RTL of R_SORT is
   -----------------------------------------------------------------------------
   -- Signals for temp ram
   -----------------------------------------------------------------------------
-  signal TMP_LD : std_logic := 'X';
+  signal TMP_CS : std_logic := 'X';
   signal TMP_RST : std_logic := rst;   
-  signal TMP_OE : std_logic := 'X';
+  signal TMP_LD : std_logic := 'X';
 
 
   -----------------------------------------------------------------------------
   -- Signals for bucket 0 and 1
   -----------------------------------------------------------------------------
-  signal B0_LD : std_logic := 'X';
-  signal B0_OE : std_logic := 'X';
-  signal B1_LD : std_logic := 'X';
-  signal B1_OE : std_logic := 'X';
+  signal B0_CS : std_logic := 'X';
+  signal B1_CS : std_logic := 'X';
+  signal B_LD : std_logic := 'X';
   signal B_IDX : INDEX_TYPE; 
 
   -----------------------------------------------------------------------------
@@ -173,8 +208,15 @@ architecture R_SORT_RTL of R_SORT is
   alias B1_IDX_LD   : std_logic is REG_LD_VECTOR(1);
   alias B_IDX_LD    : std_logic is REG_LD_VECTOR(2);
   alias S_BIT_LD    : std_logic is REG_LD_VECTOR(3);
-    
-   ----------------------------------------------------------------------------
+
+  -----------------------------------------------------------------------------
+  -- IN and OUT registers
+  -----------------------------------------------------------------------------
+  signal IN_REG_OE  : std_logic;
+  signal OUT_REG_LD : std_logic;
+  signal IN_REG_VAL : NUM;              -- temp fix
+
+  ----------------------------------------------------------------------------
   -- Mostly FSM related signals
 -------------------------------------------------------------------------------
   signal CURRENT_S_BIT : std_logic;     -- The value of the significant bit on the bus
@@ -222,7 +264,7 @@ begin  -- HIGH_LEVEL2
       LD => TMP_LD,
       RST => TMP_RST,
       CLK => clk,
-      OE => TMP_OE,
+      CS => TMP_CS,
       address => TMP_IDX,
       data => DATA);
 
@@ -233,10 +275,10 @@ begin  -- HIGH_LEVEL2
     generic map (
       delay  => RAM_DELAY)
     port map (
-      LD => B0_LD,
+      LD => B_LD,
       RST => rst,
       CLK => clk,
-      OE => B0_OE,
+      CS => B0_CS,
       address => B_IDX,
       data => DATA);
 
@@ -244,10 +286,10 @@ begin  -- HIGH_LEVEL2
     generic map (
       delay  => RAM_DELAY)
     port map (
-      LD => B1_LD,
+      LD => B_LD,
       RST => rst,
       CLK => clk,
-      OE => B1_OE,
+      CS => B1_CS,
       address => B_IDX,
       data => DATA);
 
@@ -338,6 +380,66 @@ begin  -- HIGH_LEVEL2
                 else '0';
   
 
+  -----------------------------------------------------------------------------
+  -- FSM
+  -----------------------------------------------------------------------------
 
+  STATE_MACHINE : FSM
+   port map(    
+    TMP_MAX => TMP_MAX, 
+    CURRENT_S_BIT => CURRENT_S_BIT,
+    LAST_BIT => LAST_BIT,    
+    IDX_0_DONE => IDX_0_DONE,
+   
+    TMP_IDX_INC => TMP_IDX_LD,
+    TMP_ENABLE => TMP_CS,
+    TMP_LD => TMP_LD ,
+
+    IN_REG_OE => IN_REG_OE, 
+    OUT_REG_LD => OUT_REG_LD,
+    DR  => DR,
+
+    REG_INC => REG_LD,            -- Increment selected reg
+    REG_SELECT => REG_SELECTED,  -- Which reg to select
+    
+    B0_ENABLE => B0_CS,
+    B1_ENABLE => B1_CS, 
+    B_LD => B_LD,
+
+    CLK => clk,                                    -- clock signal
+    RST => rst
+    );
+
+
+  ----------------------------------------------------------------------------
+  -- OUT REGISTER
+  -----------------------------------------------------------------------------
+  R_OUT_REG: reg
+    generic map (delay => REG_DELAY)
+    port map (input => data,
+              output => S,
+              LD => OUT_REG_LD,
+              clk => clk,
+              rst => rst);
+
+  -----------------------------------------------------------------------------
+  -- IN REG
+  -----------------------------------------------------------------------------
+  process(clk)
+  begin
+    if( clk'EVENT and clk ='1') then
+      IN_REG_VAL <= A;                    --Read in next data      
+    end if;
+  end process;
+  
+  process(IN_REG_OE)
+  begin
+    if( IN_REG_OE = '1') then
+      data <= IN_REG_VAL;
+    else
+      data <= (others => 'Z');        
+    end if;
+  end process;
+  
 end R_SORT_RTL;
 

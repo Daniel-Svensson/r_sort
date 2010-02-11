@@ -73,10 +73,10 @@ entity ram is
     delay : TIME);
 
   port (
-    LD     : in  std_logic;      -- input to be incremented
+    LD     : in  std_logic;      -- '1' = Load, '0' => write
     RST    : in  std_logic;
     CLK    : in  std_logic;
-    OE     : in  std_logic;
+    CS     : in  std_logic;     
     address: in  std_logic_vector;
     data   : inout std_logic_vector);
 --  data   : inout array(0 to address'HIGH - 1) of std_logic_vector;     -- the incremented value
