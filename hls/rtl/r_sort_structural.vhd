@@ -121,7 +121,7 @@ architecture R_SORT_RTL of R_SORT is
      port (
        IN0,IN1,IN2,IN3: in std_logic_vector;
        output       : out std_logic_vector;
-       vector_select: in std_logic_vector);
+       vector_select: in std_logic_vector(1 downto 0));
   end component;
 
   -----------------------------------------------------------------------------
@@ -169,8 +169,10 @@ architecture R_SORT_RTL of R_SORT is
   -- Signals for TMP_IDX register
   -----------------------------------------------------------------------------
   signal TMP_IDX_PLUS_1 : INDEX_TYPE := (others => 'X');  -- TMP_IDX + 1
+  signal INDEX_MAX_VALUE : INDEX_TYPE := (others => '1');
   signal TMP_IDX : INDEX_TYPE;          -- TMP_IDX value
-  signal TMP_MAX_IDX : std_logic := 'X';    -- 1 if TMP_IDX == max index
+  signal TMP_MAX : std_logic;           -- True when the tmp_idx index the last item in tmp
+  
   signal TMP_IDX_LD : std_logic := 'X';  -- Increment TMP_IDX
   
   -----------------------------------------------------------------------------
@@ -222,15 +224,15 @@ architecture R_SORT_RTL of R_SORT is
   signal CURRENT_S_BIT : std_logic;     -- The value of the significant bit on the bus
   signal LAST_BIT : std_logic;          -- True if the significant bit is the last
   signal IDX_0_DONE : std_logic;        -- True when all IDX index the last number in B0
-  signal TMP_MAX : std_logic;           -- True when the tmp_idx index the last item in tmp
+
   
   signal DATA  : NUM;  -- data buss
 
   -----------------------------------------------------------------------------
   -- CONSTANTS
   -----------------------------------------------------------------------------
-  constant REG_DELAY : TIME  := 1 us;   -- default reg delay
-  constant RAM_DELAY : TIME  := 5 us;   -- default reg delay
+  constant REG_DELAY : TIME  := 1 ns;   -- default reg delay
+  constant RAM_DELAY : TIME  := 5 ns;   -- default reg delay
   constant ADD_DELAY : TIME  := 1 ns;   -- default reg delay
   constant DEMUX_VECTOR_DELAY : TIME  := 1 ns;   -- default reg delay
   constant DEMUX_BIT_DELAY : TIME  := 1 ns;   -- default reg delay
@@ -374,9 +376,9 @@ begin  -- HIGH_LEVEL2
   -----------------------------------------------------------------------------
   IDX_0_DONE <= '1' when ( REG_PLUS_1 = B_IDX_VAL)
                 else '0';
-  TMP_MAX    <= '1' when (TMP_IDX = TMP_IDX'HIGH)
+  TMP_MAX    <= '1' when (TMP_IDX = INDEX_MAX_VALUE)
                 else '0';
-  LAST_BIT <= '1' when (S_BIT_VAL = S_BIT_VAL'HIGH)
+  LAST_BIT <= '1' when (S_BIT_VAL = INDEX_MAX_VALUE)
                 else '0';
   
 
@@ -432,14 +434,12 @@ begin  -- HIGH_LEVEL2
     end if;
   end process;
   
-  process(IN_REG_OE)
-  begin
-    if( IN_REG_OE = '1') then
-      data <= IN_REG_VAL;
-    else
-      data <= (others => 'Z');        
-    end if;
-  end process;
-  
+
+--  with IN_REG_OE select
+--    data <=
+--    IN_REG_VAL      when '1',
+--    (others => 'Z') when others;
+   data <= IN_REG_VAL;
+    
 end R_SORT_RTL;
 
