@@ -82,6 +82,31 @@ entity ram is
 --  data   : inout array(0 to address'HIGH - 1) of std_logic_vector;     -- the incremented value
 end ram;
 
+architecture ram_arch of ram is
+  type intern_storage is array (0 to address'high - 1) of std_logic_vector(0 to data'high - 1);
+  signal storage : intern_storage;
+  
+begin  -- reg_arch  
+  process (CLK) 
+  begin
+    if (CLK='1' and CLK'event) then
+
+      if(RST = '1') then
+        storage <= (others => (others => '0'));
+      end if;
+
+      if (LD = '1') then
+       -- storage(address)() <= data;
+      end if;
+
+      if(OE = '1') then
+        -- data <= storage;
+      end if;
+        
+    end if;
+  end process;
+end ram_arch;
+
 -------------------------------------------------------------------------------
 -- DEMUX BIT
 -------------------------------------------------------------------------------
