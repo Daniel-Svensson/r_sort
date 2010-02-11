@@ -54,12 +54,12 @@ architecture states of FSM is
   
 
   signal buss_load : BUSS_ENTITY_TYPE := NONE;  --Who should read data to the buss
-  signal buss_write : BUSS_ENTITY_TYPE;  -- Who should write to buss
+  signal buss_write : BUSS_ENTITY_TYPE := NONE;  -- Who should write to buss
   
   signal current_state : STATE_TYPE := IDLE;
-  signal next_state: STATE_TYPE;
+  signal next_state: STATE_TYPE := IDLE;
 
-  constant BO_IDX : std_logic_vector(1 downto 0) := "00";  -- B0 reg_select value
+  constant B0_IDX : std_logic_vector(1 downto 0) := "00";  -- B0 reg_select value
   constant B1_IDX : std_logic_vector(1 downto 0) := "01";  -- B1 reg_select value
   constant B_IDX : std_logic_vector(1 downto 0) := "10";  -- B reg_select value
   constant S_BIT : std_logic_vector(1 downto 0) := "11";  -- S_BIT reg_select value
@@ -93,6 +93,11 @@ begin  -- HIGH_LEVEL
       -------------------------------------------------------------------------
       when IDLE =>
         next_state <= I_0;
+        reg_select <= B0_IDX;
+        buss_load <= NONE;
+        buss_write <= NONE;
+        reg_inc <= '0';
+        tmp_idx_inc <= '0';
    
         -----------------------------------------------------------------------
         -- I_0, input step, load input data to correct bucket, until all data
@@ -104,7 +109,7 @@ begin  -- HIGH_LEVEL
         -- Select bucet to put data in
         if (CURRENT_S_BIT = '0') then
           buss_load <= B_0;
-          REG_SELECT <= BO_IDX; 
+          REG_SELECT <= B0_IDX; 
         elsif (CURRENT_S_BIT = '1') then
           buss_load <= B_1;
           REG_SELECT <= B1_IDX;
@@ -182,4 +187,5 @@ begin  -- HIGH_LEVEL
 
 
 end states;
+
 

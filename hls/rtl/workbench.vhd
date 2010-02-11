@@ -57,7 +57,7 @@ begin  -- sort_test
     S => output);
 
   clock_generator : CLOCK_GEN
-    generic map (50 ns, 10)
+    generic map (25 ns, 10)
     port map (clk);
                 
 
