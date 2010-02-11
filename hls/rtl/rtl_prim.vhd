@@ -128,11 +128,26 @@ use ieee.std_logic_unsigned.all;
 
 entity mux_bit is 
   generic (
-    delay : TIME);
-  
+    delay : TIME);  
   port (
     input     : in  std_logic;
     output    : out std_logic_vector;
     bit_select: in  std_logic_vector);
 end mux_bit;
   
+architecture mux_arch of mux_bit is
+
+begin  -- add_one_arch
+
+  process(input,bit_select)
+  begin
+    for i in output'range loop
+      if (i = bit_select) then
+        output(i) <= '1';
+      else
+        output(i) <= '0';
+      end if;
+    end loop;  -- i
+  end process;
+  
+end mux_arch;
