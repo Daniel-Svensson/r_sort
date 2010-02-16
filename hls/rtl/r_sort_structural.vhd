@@ -141,7 +141,7 @@ architecture R_SORT_RTL of R_SORT is
     TMP_LD : out std_logic;             -- '1' to load ram if enabled, '0' write
 
     IN_REG_OE : out std_logic;
-    OUT_REG_LD : out std_logic;
+    OUT_REG_LD : inout std_logic;
 
     DR : out std_logic;
 
@@ -151,6 +151,9 @@ architecture R_SORT_RTL of R_SORT is
     -- 01 = B1_IDX
     -- 10 = B_IDX
     -- 11 = S_BIT
+    RESET_B_IDX : out std_logic;
+    RESET_B0_IDX : out std_logic;
+    RESET_B1_IDX : out std_logic;
 
     
     B0_ENABLE : out std_logic;          -- True if B_LD, B_OE should affect B0
@@ -205,6 +208,10 @@ architecture R_SORT_RTL of R_SORT is
   signal S_BIT_VAL  : INDEX_TYPE;           -- Value of the S_BIT reg
 
   signal REG_LD : std_logic; --Load the selected register;
+  signal RESET_B_IDX : std_logic;
+  signal RESET_B0_IDX : std_logic;
+  signal RESET_B1_IDX : std_logic;
+  
   signal REG_LD_VECTOR : std_logic_vector(0 to 3);
   alias B0_IDX_LD   : std_logic is REG_LD_VECTOR(0);
   alias B1_IDX_LD   : std_logic is REG_LD_VECTOR(1);
@@ -304,7 +311,7 @@ begin  -- HIGH_LEVEL2
               output => B0_IDX_VAL,
               LD => B0_IDX_LD,
               clk => clk,
-              rst => rst);
+              rst => RESET_B0_IDX);
 
   R_B1_IDX: reg
     generic map (delay => REG_DELAY)
@@ -312,7 +319,7 @@ begin  -- HIGH_LEVEL2
               output => B1_IDX_VAL,
               LD => B1_IDX_LD,
               clk => clk,
-              rst => rst);
+              rst => RESET_B1_IDX);
 
   R_B_IDX: reg
     generic map (delay => REG_DELAY)
@@ -320,7 +327,7 @@ begin  -- HIGH_LEVEL2
               output => B_IDX_VAL,
               LD => B_IDX_LD,
               clk => clk,
-              rst => rst);
+              rst => RESET_B_IDX);
 
   R_S_BIT: reg
     generic map (delay => REG_DELAY)
@@ -374,7 +381,7 @@ begin  -- HIGH_LEVEL2
   -----------------------------------------------------------------------------
   -- Comparators
   -----------------------------------------------------------------------------
-  IDX_0_DONE <= '1' when ( REG_PLUS_1 = B_IDX_VAL)
+  IDX_0_DONE <= '1' when ( B0_IDX_VAL <=  REG_PLUS_1)
                 else '0';
   TMP_MAX    <= '1' when (TMP_IDX = INDEX_MAX_VALUE)
                 else '0';
@@ -403,6 +410,10 @@ begin  -- HIGH_LEVEL2
 
     REG_INC => REG_LD,            -- Increment selected reg
     REG_SELECT => REG_SELECTED,  -- Which reg to select
+    
+    RESET_B_IDX => RESET_B_IDX,
+    RESET_B0_IDX => RESET_B0_IDX,
+    RESET_B1_IDX => RESET_B1_IDX,
     
     B0_ENABLE => B0_CS,
     B1_ENABLE => B1_CS, 
@@ -435,11 +446,10 @@ begin  -- HIGH_LEVEL2
   end process;
   
 
---  with IN_REG_OE select
---    data <=
---    IN_REG_VAL      when '1',
---    (others => 'Z') when others;
-   data <= IN_REG_VAL;
+  with IN_REG_OE select
+    data <=
+    IN_REG_VAL      when '1',
+    (others => 'Z') when others;
     
 end R_SORT_RTL;
 

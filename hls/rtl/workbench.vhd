@@ -35,6 +35,8 @@ architecture sort_test of workbench is
 
   signal clk : std_logic := '0';
   signal rst : std_logic := '0';
+
+  signal num_read : INTEGER := 0;
 begin  -- sort_test
 --  test_input <= ("0010","0101","0111","1000"),
 --                ("1001","0110","1000","0001") after 1 ms;
@@ -47,8 +49,7 @@ begin  -- sort_test
                 "0110" after 100 ns,
                 "1000" after 150 ns,
                 "0001" after 200 ns;
-  
-  
+    
   sorter : R_SORT port map (
     A => test_input,
     CLK => clk,
@@ -57,10 +58,27 @@ begin  -- sort_test
     S => output);
 
   clock_generator : CLOCK_GEN
-    generic map (25 ns, 10)
+    generic map (25 ns, 300)
     port map (clk);
                 
 
+  process(CLK)
+    type data_array is array(0 to 3) of NUM;
+    variable correct_output : data_array
+       := ("0001","0110","1000","1001");
+    
+    begin
+      if ( CLK'EVENT and CLK ='1' ) then
+        if( data_ready = '1') then
+          assert correct_output(num_read) = output report "Invalid data" severity failure;
+          num_read <= num_read + 1;
+
+          assert not (num_read + 1 = 4) report "Test passed" severity failure;
+        end if;
+      end if; --CLK
+    end process;
+          
+        
 
 end sort_test;
 

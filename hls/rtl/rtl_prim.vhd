@@ -91,23 +91,37 @@ architecture ram_arch of ram is
   type intern_storage is array (0 to 3) of std_logic_vector(3 downto 0);
   signal storage : intern_storage := (others => (others => '0'));  
 begin  -- reg_arch  
-  process (CLK) 
+  process (CLK, RST, CS, LD, address) 
   begin
+    ---------------------------------------------------------------------------
+    -- Reset
+    ---------------------------------------------------------------------------
     if(RST = '1') then
       storage <= (others => (others => '0'));
       data(data'range) <= (others => 'Z');
+    ---------------------------------------------------------------------------
+    -- Tri-state if not CS
+    ---------------------------------------------------------------------------
     elsif (CS = '0') then 
       for i in data'range loop
         data(i) <= 'Z' after delay;
-      end loop;  -- i then          
-    elsif (CLK='1' and CLK'event) then  --CS = 1
-      if (LD = '1') then
+      end loop;  -- i then
+    ---------------------------------------------------------------------------
+    -- Write if not load
+    ---------------------------------------------------------------------------
+    elsif LD = '0' then
+        data <= storage(to_integer(unsigned(address))) after delay;
+    ---------------------------------------------------------------------------
+    -- Synchrounous load
+    ---------------------------------------------------------------------------
+    else  --LD = '1'
+         
+      if (CLK='1' and CLK'event) then  --CS = 1
         storage(to_integer(unsigned(address))) <= data;
-      else
-        --write
-        data <= storage(to_integer(unsigned(address))) after delay;          
       end if;
-    end if;                           --CLK
+      
+    end if;
+    
   end process;
 end ram_arch;
 
