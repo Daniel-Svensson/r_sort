@@ -45,10 +45,16 @@ begin  -- sort_test
          '0' after 50 ns;
   
   test_input <= "0000",
-                "1001" after 50 ns,
-                "0110" after 100 ns,
-                "1000" after 150 ns,
-                "0001" after 200 ns;
+                "1011" after 50 ns,
+                "1010" after 100 ns,
+                "0011" after 150 ns,
+                "0010" after 200 ns;
+
+--  test_input <= "0000",
+--                "1001" after 50 ns,
+--                "0110" after 100 ns,
+--                "1000" after 150 ns,
+--                "0001" after 200 ns;
     
   sorter : R_SORT port map (
     A => test_input,
@@ -65,7 +71,8 @@ begin  -- sort_test
   process(CLK)
     type data_array is array(0 to 3) of NUM;
     variable correct_output : data_array
-       := ("0001","0110","1000","1001");
+--       := ("0001","0110","1000","1001");
+           := ("0010","0011","1010","1011");
     
     begin
       if ( CLK'EVENT and CLK ='1' ) then

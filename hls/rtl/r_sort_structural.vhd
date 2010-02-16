@@ -12,7 +12,10 @@ package R_SORT_PKG is
   type NUM_ARRAY is array (0 to ARRAY_LEN-1) of NUM;
   
   -- Used to index into the data arrays
+  -- This should wrap araound 
   subtype INDEX_TYPE is std_logic_vector(INDEX_BITS-1 downto 0);
+  -- This is also used as index, but should not wrap around
+  subtype EX_INDEX_TYPE is std_logic_vector(INDEX_BITS downto 0);
 
 end;
 
@@ -123,6 +126,17 @@ architecture R_SORT_RTL of R_SORT is
        output       : out std_logic_vector;
        vector_select: in std_logic_vector(1 downto 0));
   end component;
+  -----------------------------------------------------------------------------
+  -- BUFFER
+  -----------------------------------------------------------------------------
+  component buffer_vector
+    generic (
+      delay : time);
+    port (
+      input  : in std_logic_vector;
+      output : out std_logic_vector;
+      OE     : in std_logic);           -- '1' to enable output
+  end component;
 
   -----------------------------------------------------------------------------
   -- FSM
@@ -192,20 +206,20 @@ architecture R_SORT_RTL of R_SORT is
   signal B0_CS : std_logic := 'X';
   signal B1_CS : std_logic := 'X';
   signal B_LD : std_logic := 'X';
-  signal B_IDX : INDEX_TYPE; 
 
   -----------------------------------------------------------------------------
   -- Signals for IDX_0,IDX_1,IDX and s_bit  registers
   -----------------------------------------------------------------------------
   type BUCKET_IDX is (B0, B1, B , S_BIT);
   signal REG_SELECTED : std_logic_vector(1 downto 0);-- The register to be added
-  signal REG_PLUS_1   : INDEX_TYPE;        -- One of the registers below +1
-  signal REG_VAL      : INDEX_TYPE;        -- One of the registers below
+  signal REG_PLUS_1   : EX_INDEX_TYPE;        -- One of the registers below +1
+  signal REG_VAL      : EX_INDEX_TYPE;        -- One of the registers below
+  alias B_IDX : INDEX_TYPE is REG_VAL(INDEX_BITS-1  downto 0);
   
-  signal B0_IDX_VAL : INDEX_TYPE;           -- Value of the IDX_0 reg  
-  signal B1_IDX_VAL : INDEX_TYPE;           -- Value of the IDX_1 reg
-  signal B_IDX_VAL  : INDEX_TYPE;           -- Value of the IDX reg
-  signal S_BIT_VAL  : INDEX_TYPE;           -- Value of the S_BIT reg
+  signal B0_IDX_VAL : EX_INDEX_TYPE;           -- Value of the IDX_0 reg  
+  signal B1_IDX_VAL : EX_INDEX_TYPE;           -- Value of the IDX_1 reg
+  signal B_IDX_VAL  : EX_INDEX_TYPE;           -- Value of the IDX reg
+  signal S_BIT_VAL  : EX_INDEX_TYPE;           -- Value of the S_BIT reg
 
   signal REG_LD : std_logic; --Load the selected register;
   signal RESET_B_IDX : std_logic;
@@ -245,7 +259,8 @@ architecture R_SORT_RTL of R_SORT is
   constant DEMUX_BIT_DELAY : TIME  := 1 ns;   -- default reg delay
   constant MUX_BIT_DELAY : TIME  := 1 ns;   -- default reg delay
 
-  
+
+  signal HIGH : std_logic := '1';       -- Always one
   
 begin  -- HIGH_LEVEL2
 
@@ -348,8 +363,6 @@ begin  -- HIGH_LEVEL2
        output => REG_VAL,
        vector_select => REG_SELECTED);
   
-  B_IDX <= REG_VAL;
-
    REG_ADDER: add_one
      generic map (
        delay => ADD_DELAY)
@@ -388,7 +401,6 @@ begin  -- HIGH_LEVEL2
   LAST_BIT <= '1' when (S_BIT_VAL = INDEX_MAX_VALUE)
                 else '0';
   
-
   -----------------------------------------------------------------------------
   -- FSM
   -----------------------------------------------------------------------------
@@ -438,18 +450,36 @@ begin  -- HIGH_LEVEL2
   -----------------------------------------------------------------------------
   -- IN REG
   -----------------------------------------------------------------------------
-  process(clk)
-  begin
-    if( clk'EVENT and clk ='1') then
-      IN_REG_VAL <= A;                    --Read in next data      
-    end if;
-  end process;
+  R_IN_REG : reg
+    generic map (
+      delay => REG_DELAY)
+    port map (
+      input  => A,
+      output => IN_REG_VAL,
+      LD     => HIGH,
+      clk    => CLK,
+      rst    => rst);
   
+--  process(clk)
+--  begin
+--    if( clk'EVENT and clk ='1') then
+--      IN_REG_VAL <= A;                    --Read in next data      
+--    end if;
+--  end process;
 
-  with IN_REG_OE select
-    data <=
-    IN_REG_VAL      when '1',
-    (others => 'Z') when others;
+  IN_BUFFER : buffer_vector
+    generic map (
+      delay => REG_DELAY)
+    port map (
+      input     => IN_REG_VAL,
+      output    => data,
+      OE => IN_REG_OE);
+    
+
+--  with IN_REG_OE select
+--    data <=
+--    IN_REG_VAL      when '1',
+--    (others => 'Z') when others;
     
 end R_SORT_RTL;
 

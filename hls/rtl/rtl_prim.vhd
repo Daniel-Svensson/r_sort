@@ -192,8 +192,8 @@ begin  -- add_one_arch
               IN1 after delay when "01",
               IN2 after delay when "10",
               IN3 after delay when "11",
-              "XX" after delay when others;
-
+              "ZZZ" after delay when "ZZ",
+              "XXX" after delay when others;
      
 end demux_vector_arch;
 -------------------------------------------------------------------------------
@@ -228,3 +228,37 @@ begin  -- add_one_arch
   end process;
   
 end mux_arch;
+
+
+-------------------------------------------------------------------------------
+-- BUFFER
+-------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity buffer_vector is 
+  generic (
+    delay : TIME);  
+  port (
+    input     : in  std_logic_vector;
+    output    : out std_logic_vector;
+    OE : in std_logic);
+end buffer_vector;
+  
+architecture buffer_arch of buffer_vector is
+
+begin  -- add_one_arch
+
+  process(input,OE)
+  begin
+      if (OE = '1') then
+        output <= input after delay;
+      else
+        for i in output'range loop
+          output(i) <= 'Z' after delay;          
+        end loop;  -- i
+      end if;
+  end process;
+  
+end buffer_arch;
