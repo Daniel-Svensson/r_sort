@@ -59,11 +59,13 @@ architecture states of FSM is
                       DONE);           -- AS IDLE, but don't start reading
 
   --Entites that can access the bus
-  type BUSS_ENTITY_TYPE is (TMP_OR_IO,B_0,B_1,IN_REG,NONE);
+  type BUSS_DIRECTION  is (TO_B0,
+                           TO_B1,
+                           FROM_B0,
+                           FROM_B1,
+                           NONE);  -- Buss direction
   
-
-  signal buss_load : BUSS_ENTITY_TYPE := NONE;   -- Who should read data to the bus
-  signal buss_write : BUSS_ENTITY_TYPE := NONE;  -- Who should write to buss
+  signal buss_dir : BUSS_DIRECTION;   -- Who should read data to the bus
   
   signal current_state : STATE_TYPE := IDLE;
   signal next_state: STATE_TYPE := IDLE;
@@ -103,8 +105,7 @@ begin  -- HIGH_LEVEL
       when IDLE =>
         next_state <= INPUT;
         reg_select <= B0_IDX;
-        buss_load <= NONE;
-        buss_write <= NONE;
+        buss_dir <= NONE;
         reg_inc <= '0';
         tmp_idx_inc <= '0';
 
@@ -117,20 +118,21 @@ begin  -- HIGH_LEVEL
         -- is processed
         -----------------------------------------------------------------------
       when INPUT =>
-        buss_write <= IN_REG;
+
+
+
+        if (CURRENT_S_BIT = '0') then
+          buss_dir <= TO_B0;
+          REG_SELECT <= B0_IDX; 
+        else
+          buss_load <= TO_B1;
+          REG_SELECT <= B1_IDX;
+        end if;
+
 
         RESET_B0_IDX <= '0';
         RESET_B1_IDX <= '0';
         
-        -- Select bucet to put data in
-        if (CURRENT_S_BIT = '0') then
-          buss_load <= B_0;
-          REG_SELECT <= B0_IDX; 
-        elsif (CURRENT_S_BIT = '1') then
-          buss_load <= B_1;
-          REG_SELECT <= B1_IDX;
-        end if;
-
         --Increase TMP_INC and REG_INC, out counters
         REG_INC <= '1';
         TMP_IDX_INC <= '1';
@@ -147,20 +149,18 @@ begin  -- HIGH_LEVEL
         -- is processed
         -----------------------------------------------------------------------
       when BUCKETIZE =>
-        buss_write <= TMP_OR_IO;
 
+         if (CURRENT_S_BIT = '0') then
+          buss_dir <= TO_B0;
+          REG_SELECT <= B0_IDX; 
+        else
+          buss_load <= TO_B1;
+          REG_SELECT <= B1_IDX;
+        end if;
+        
         RESET_B0_IDX <= '0';
         RESET_B1_IDX <= '0';
         
-        -- Select bucket to put data in
-        if (CURRENT_S_BIT = '0') then
-          buss_load <= B_0;
-          REG_SELECT <= B0_IDX; 
-        elsif (CURRENT_S_BIT = '1') then
-          buss_load <= B_1;
-          REG_SELECT <= B1_IDX;
-        end if;
-
         --Increase TMP_INC and B_X, out counters
         REG_INC <= '1';
         TMP_IDX_INC <= '1';
@@ -183,10 +183,7 @@ begin  -- HIGH_LEVEL
         TMP_IDX_INC <= '0';
 
         -- No one should read data from the buss
-        buss_load <= NONE;
-
-        --FOR debug purpose
-        buss_write <= NONE;
+        buss_dir <= NONE;
 
         -- Make Sure B_IDX is 0 when we start using it in M0_0
         RESET_B_IDX <= '1';        
@@ -202,12 +199,12 @@ begin  -- HIGH_LEVEL
         -- M0_1 Copy all numbers in bucket 0 to temp
         -----------------------------------------------------------------------
       when MERGE0_1 =>
-        buss_write <= B_0;
-        buss_load <= TMP_OR_IO;        
+        buss_dir <= FROM_B0;
 
         --Increase TMP_INC and REG_INC, out counters
         REG_INC <= '1';
         TMP_IDX_INC <= '1';
+
         -- Use ++B_IDX as index, into B0
         REG_SELECT <= B_IDX;
         
@@ -244,19 +241,15 @@ begin  -- HIGH_LEVEL
         REG_SELECT <= (others => DONT_CARE); 
 
         -- No one should read data from the buss
-        buss_load <= NONE;
-        --FOR debug purpose
-        buss_write <= NONE;        
+        buss_dir <= NONE;
 
         --move rest of the numbers
         next_state <= MERGE1_1;           -- Start copying 
-
         -----------------------------------------------------------------------
         -- M1_1 Copy all numbers in bucket 0 to temp,        
         -----------------------------------------------------------------------
       when MERGE1_1 =>
-        buss_write <= B_1;
-        buss_load <= TMP_OR_IO;        
+        buss_dir <= B_1;
 
         --Increase TMP_INC and REG_INC, out counters
         REG_INC <= '1';
@@ -294,18 +287,15 @@ begin  -- HIGH_LEVEL
         RESET_B1_IDX <= '1';
         
         tmp_idx_inc <= '0';
-        buss_load <= NONE;
+        buss_dir <= NONE;
         
-        --FOR debug purpose
-        buss_write <= NONE;
         -----------------------------------------------------------------------
         -- Done, do nothing returns to idle on reset
         -----------------------------------------------------------------------
         when DONE =>
         next_state <= DONE;
         reg_select <= (others => DONT_CARE);
-        buss_load <= NONE;
-        buss_write <= NONE;
+        buss_dir <= NONE;
         reg_inc <= '0';
         tmp_idx_inc <= '0';
 
@@ -355,6 +345,16 @@ begin  -- HIGH_LEVEL
     end if;
 
 
+
+        if (CURRENT_S_BIT = '0') then
+          buss_load <= B_0;
+          REG_SELECT <= B0_IDX; 
+        elsif (CURRENT_S_BIT = '1') then
+          buss_load <= B_1;
+          REG_SELECT <= B1_IDX;
+        end if;
+
+    
     if buss_load = B_0 or buss_write = B_0 then
       B0_ENABLE <= '1';
     else
