@@ -46,7 +46,7 @@ end FSM;
 
 architecture states of FSM is
 
-  constant DONT_CARE : std_logic := 'Z';
+  constant DONT_CARE : std_logic := '0';
   
   type STATE_TYPE is (IDLE,             -- The initial IDLE state
                       INPUT,            -- States when sorting data into buckets from input
@@ -80,10 +80,12 @@ begin  -- HIGH_LEVEL
   --Change state synchronously
   STATE_CHANGE: process(RST, CLK)
   begin
-    if (rst = '1') then
-      current_state <= IDLE;
-    elsif (CLK='1' and CLK'event) then
-      current_state <= next_state;
+    if (rising_edge(CLK)) then
+      if (rst = '1') then
+        current_state <= IDLE;
+      else
+        current_state <= next_state;
+      end if;
     end if;
   end process STATE_CHANGE;
 
@@ -91,8 +93,7 @@ begin  -- HIGH_LEVEL
   -----------------------------------------------------------------------------
   -- Decode the next state
   -----------------------------------------------------------------------------
-  decode_logic: process(RST,
-                        current_state,
+  decode_logic: process(current_state,
                         CURRENT_S_BIT,
                         LAST_BIT,
                         IDX_0_DONE,
@@ -119,20 +120,19 @@ begin  -- HIGH_LEVEL
         -----------------------------------------------------------------------
       when INPUT =>
 
-
-
+        RESET_B_IDX <= DONT_CARE;        
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= '0';
+        
+        -- Select bucet to put data in
         if (CURRENT_S_BIT = '0') then
           buss_dir <= TO_B0;
           REG_SELECT <= B0_IDX; 
         else
-          buss_load <= TO_B1;
+          buss_dir <= to_B1;
           REG_SELECT <= B1_IDX;
         end if;
 
-
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= '0';
-        
         --Increase TMP_INC and REG_INC, out counters
         REG_INC <= '1';
         TMP_IDX_INC <= '1';
@@ -150,16 +150,18 @@ begin  -- HIGH_LEVEL
         -----------------------------------------------------------------------
       when BUCKETIZE =>
 
-         if (CURRENT_S_BIT = '0') then
+        RESET_B_IDX <= DONT_CARE;        
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= '0';
+        
+        -- Select bucket to put data in
+        if (CURRENT_S_BIT = '0') then
           buss_dir <= TO_B0;
           REG_SELECT <= B0_IDX; 
         else
-          buss_load <= TO_B1;
+          buss_dir <= TO_B1;
           REG_SELECT <= B1_IDX;
         end if;
-        
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= '0';
         
         --Increase TMP_INC and B_X, out counters
         REG_INC <= '1';
@@ -186,7 +188,10 @@ begin  -- HIGH_LEVEL
         buss_dir <= NONE;
 
         -- Make Sure B_IDX is 0 when we start using it in M0_0
-        RESET_B_IDX <= '1';        
+        RESET_B_IDX <= '1';
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= DONT_CARE;
+        
         if IDX_0_DONE = '1' then
           next_state <= MERGE1_0;
         else
@@ -209,6 +214,8 @@ begin  -- HIGH_LEVEL
         REG_SELECT <= B_IDX;
         
         RESET_B_IDX <= '0';
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= DONT_CARE;
         
         --All data read move to M1_0, else continue reading
         if (IDX_0_DONE = '1') then
@@ -235,6 +242,9 @@ begin  -- HIGH_LEVEL
       when MERGE1_0 =>
         -- Reset B_IDX to 0, since we start indexing from 0       
         RESET_B_IDX <= '1';
+        RESET_B0_IDX <= DONT_CARE;
+        RESET_B1_IDX <= DONT_CARE;
+        
         REG_INC <= '0';                 --Don't add now
         TMP_IDX_INC <= '0';
         -- Use B_IDX
@@ -249,14 +259,16 @@ begin  -- HIGH_LEVEL
         -- M1_1 Copy all numbers in bucket 0 to temp,        
         -----------------------------------------------------------------------
       when MERGE1_1 =>
-        buss_dir <= B_1;
+        buss_dir <= FROM_B1;
 
         --Increase TMP_INC and REG_INC, out counters
         REG_INC <= '1';
         TMP_IDX_INC <= '1';
         -- Use B_IDX as index into B1
         REG_SELECT <= B_IDX;
-
+        
+        RESET_B0_IDX <= DONT_CARE;
+        RESET_B1_IDX <= DONT_CARE;
         RESET_B_IDX <= '0';
         
         --All data read move to M_0, else continue reading
@@ -283,6 +295,7 @@ begin  -- HIGH_LEVEL
           NEXT_STATE <= BUCKETIZE;
         end if;
 
+        RESET_B_IDX <= DONT_CARE;        
         RESET_B0_IDX <= '1';
         RESET_B1_IDX <= '1';
         
@@ -314,71 +327,72 @@ begin  -- HIGH_LEVEL
   -----------------------------------------------------------------------------
   -- Code for accessing buss
   -----------------------------------------------------------------------------
-  buss_logic: process(buss_load, buss_write)
+  buss_logic: process(buss_dir,current_state,last_bit)
   begin
+    case buss_dir is
 
-    --The buss_write logic takes care of the X_LD signals
-
-    -- TMP or an IO_register should read data from the buss
-    if( buss_load = TMP_OR_IO ) then
-      -- Set TMP in load mode
-      TMP_LD <= '1';
-
-      -- Read into OUT_REG if this is the last round
-      if (LAST_BIT = '1') then 
-        OUT_REG_LD <= '1';
-        TMP_ENABLE <= '0';
-      else
+      when TO_B0=>
+        B0_ENABLE <= '1';
+        B1_ENABLE <= '0';
+        B_LD <= '1';
         OUT_REG_LD <= '0';
-        TMP_ENABLE <= '1';
-      end if;
+        TMP_LD <= '0';
+        
+        if current_state = BUCKETIZE then
+          TMP_ENABLE <= '1';
+          IN_REG_OE <= '0';
+        else
+          --INPUT 
+          TMP_ENABLE <= '0';
+          IN_REG_OE <= '1';            
+        end if;
+        
+      when TO_B1=>
+        B0_ENABLE <= '0';
+        B1_ENABLE <= '1';
+        B_LD <= '1';
+        OUT_REG_LD <= '0';
+        TMP_LD <= '0';
 
-      -- TMP or an IO_register should write data from the buss
-    elsif (buss_write = TMP_OR_IO) then     
-      TMP_LD <= '0';
-      TMP_ENABLE <= '1';      
-      OUT_REG_LD <= '0';
-    else      
-      TMP_ENABLE <= '0';
-      TMP_LD <= DONT_CARE;
-      OUT_REG_LD <= '0';
-    end if;
-
-
-
-        if (CURRENT_S_BIT = '0') then
-          buss_load <= B_0;
-          REG_SELECT <= B0_IDX; 
-        elsif (CURRENT_S_BIT = '1') then
-          buss_load <= B_1;
-          REG_SELECT <= B1_IDX;
+        if current_state = BUCKETIZE then
+          TMP_ENABLE <= '1';
+          IN_REG_OE <= '0';
+        else
+          --INPUT 
+          TMP_ENABLE <= '0';
+          IN_REG_OE <= '1';            
         end if;
 
-    
-    if buss_load = B_0 or buss_write = B_0 then
-      B0_ENABLE <= '1';
-    else
-      B0_ENABLE <= '0';        
-    end if;
+      when FROM_B0=>
+        TMP_LD <= '1';
+        TMP_ENABLE <= '1';
+        OUT_REG_LD <= LAST_BIT;
 
-    if buss_load = B_1 or buss_write = B_1 then
-      B1_ENABLE <= '1';
-    else
-      B1_ENABLE <= '0';
-    end if;
+        B0_ENABLE <= '1';
+        B1_ENABLE <= '0';
+        B_LD <= '0';
+        IN_REG_OE <= '0';
 
-    if (buss_load = B_0 or buss_load = B_1) then
-      B_LD <= '1';
-    else
-      B_LD <= '0';        
-    end if;
+      when FROM_B1=>
+        TMP_LD <= '1';
+        TMP_ENABLE <= '1';
+        OUT_REG_LD <= LAST_BIT; 
 
-    if buss_write = IN_REG then
-      IN_REG_OE <= '1';
-    else
-      IN_REG_OE <= '0';        
-    end if;
+        
+        B0_ENABLE <= '0';
+        B1_ENABLE <= '1';
+        B_LD <= '0';
+        IN_REG_OE <= '0';
+      when NONE =>              
+        TMP_ENABLE <= '0';
+        B0_ENABLE <= '0';
+        B1_ENABLE <= '0';
+        IN_REG_OE <= '0';
 
+        B_LD <= DONT_CARE;
+        OUT_REG_LD <= DONT_CARE;
+        TMP_LD <= DONT_CARE;
+    end case;
   end process buss_logic;
 
 
@@ -387,12 +401,13 @@ begin  -- HIGH_LEVEL
   begin
     if RST = '1' then
       DR <= '0';
-    elsif CLK'event and CLK = '1' then
+    elsif rising_edge(CLK) then
       DR <= OUT_REG_LD;
     end if;
   end process DR_OUTPUT;
 
 end states;
+
 
 
 

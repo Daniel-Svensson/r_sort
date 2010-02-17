@@ -130,8 +130,6 @@ architecture R_SORT_RTL of R_SORT is
   -- BUFFER
   -----------------------------------------------------------------------------
   component buffer_vector
-    generic (
-      delay : time);
     port (
       input  : in std_logic_vector;
       output : out std_logic_vector;
@@ -468,8 +466,6 @@ begin  -- HIGH_LEVEL2
 --  end process;
 
   IN_BUFFER : buffer_vector
-    generic map (
-      delay => REG_DELAY)
     port map (
       input     => IN_REG_VAL,
       output    => data,

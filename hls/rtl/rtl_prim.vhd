@@ -48,15 +48,18 @@ end reg;
 
 architecture reg_arch of reg is
   -- the input data is stored here
-  signal storage : std_logic_vector(input'range) := (others => '0');
-  
+
+  signal storage : std_logic_vector(input'range); 
 begin  -- reg_arch
   process (CLK,RST)
+   
   begin
     if(RST = '1') then
       storage <= (others => '0');
-    elsif (CLK='1' and CLK'event and LD = '1') then
-      storage <= input;
+    elsif (rising_edge(CLK)) then
+      if (LD = '1') then
+        storage <= input;        
+      end if;
     end if;
   end process;
 
@@ -89,23 +92,22 @@ end ram;
 architecture ram_arch of ram is
 --  type intern_storage is array (0 to address'high - 1) of std_logic_vector(0 to data'high - 1);
   type intern_storage is array (0 to 3) of std_logic_vector(3 downto 0);
-  signal storage : intern_storage := (others => (others => '0'));  
+--  signal storage : intern_storage := (others => (others => '0'));  
 begin  -- reg_arch  
-  process (CLK, RST, CS, LD, address) 
+  process (CLK, CS, LD, address)
+    variable storage  : intern_storage;  -- Memory
   begin
     ---------------------------------------------------------------------------
-    -- Reset
-    ---------------------------------------------------------------------------
-    if(RST = '1') then
-      storage <= (others => (others => '0'));
-      data(data'range) <= (others => 'Z');
-    ---------------------------------------------------------------------------
     -- Tri-state if not CS
+    
     ---------------------------------------------------------------------------
-    elsif (CS = '0') then 
-      for i in data'range loop
-        data(i) <= 'Z' after delay;
-      end loop;  -- i then
+    if (CS = '0') then
+      data(data'range) <= (others => 'Z');    
+    ---------------------------------------------------------------------------
+  
+    ---------------------------------------------------------------------------
+--    elsif (CS = '0') then
+--      data(data'range) <= (others => 'Z');
     ---------------------------------------------------------------------------
     -- Write if not load
     ---------------------------------------------------------------------------
@@ -115,9 +117,10 @@ begin  -- reg_arch
     -- Synchrounous load
     ---------------------------------------------------------------------------
     else  --LD = '1'
-         
-      if (CLK='1' and CLK'event) then  --CS = 1
-        storage(to_integer(unsigned(address))) <= data;
+      data(data'range) <= (others => 'Z');
+
+      if (rising_edge(CLK)) then  --CS = 1
+        storage(to_integer(unsigned(address))) := data;
       end if;
       
     end if;
@@ -192,7 +195,7 @@ begin  -- add_one_arch
               IN1 after delay when "01",
               IN2 after delay when "10",
               IN3 after delay when "11",
-              "ZZZ" after delay when "ZZ",
+--              "ZZZ" after delay when "ZZ",
               "XXX" after delay when others;
      
 end demux_vector_arch;
@@ -238,8 +241,6 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
 entity buffer_vector is 
-  generic (
-    delay : TIME);  
   port (
     input     : in  std_logic_vector;
     output    : out std_logic_vector;
@@ -253,12 +254,13 @@ begin  -- add_one_arch
   process(input,OE)
   begin
       if (OE = '1') then
-        output <= input after delay;
+        output <= input;
       else
         for i in output'range loop
-          output(i) <= 'Z' after delay;          
+          output(i) <= 'Z';          
         end loop;  -- i
       end if;
   end process;
   
 end buffer_arch;
+
