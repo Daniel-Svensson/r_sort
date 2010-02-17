@@ -46,7 +46,7 @@ end FSM;
 
 architecture states of FSM is
 
-  constant DONT_CARE : std_logic := 'Z';
+  constant DONT_CARE : std_logic := '0';
   
   type STATE_TYPE is (IDLE,             -- The initial IDLE state
                       INPUT,            -- States when sorting data into buckets from input
@@ -78,10 +78,12 @@ begin  -- HIGH_LEVEL
   --Change state synchronously
   STATE_CHANGE: process(RST, CLK)
   begin
-    if (rst = '1') then
-      current_state <= IDLE;
-    elsif (CLK='1' and CLK'event) then
+    if (rising_edge(CLK)) then
+  	  if (rst = '1') then
+   	   current_state <= IDLE;
+		else
       current_state <= next_state;
+		end if;
     end if;
   end process STATE_CHANGE;
 
@@ -89,8 +91,7 @@ begin  -- HIGH_LEVEL
   -----------------------------------------------------------------------------
   -- Decode the next state
   -----------------------------------------------------------------------------
-  decode_logic: process(RST,
-                        current_state,
+  decode_logic: process(current_state,
                         CURRENT_S_BIT,
                         LAST_BIT,
                         IDX_0_DONE,
@@ -119,6 +120,7 @@ begin  -- HIGH_LEVEL
       when INPUT =>
         buss_write <= IN_REG;
 
+        RESET_B_IDX <= DONT_CARE;        
         RESET_B0_IDX <= '0';
         RESET_B1_IDX <= '0';
         
@@ -126,7 +128,7 @@ begin  -- HIGH_LEVEL
         if (CURRENT_S_BIT = '0') then
           buss_load <= B_0;
           REG_SELECT <= B0_IDX; 
-        elsif (CURRENT_S_BIT = '1') then
+        else
           buss_load <= B_1;
           REG_SELECT <= B1_IDX;
         end if;
@@ -149,6 +151,7 @@ begin  -- HIGH_LEVEL
       when BUCKETIZE =>
         buss_write <= TMP_OR_IO;
 
+        RESET_B_IDX <= DONT_CARE;        
         RESET_B0_IDX <= '0';
         RESET_B1_IDX <= '0';
         
@@ -156,7 +159,7 @@ begin  -- HIGH_LEVEL
         if (CURRENT_S_BIT = '0') then
           buss_load <= B_0;
           REG_SELECT <= B0_IDX; 
-        elsif (CURRENT_S_BIT = '1') then
+        else
           buss_load <= B_1;
           REG_SELECT <= B1_IDX;
         end if;
@@ -189,7 +192,10 @@ begin  -- HIGH_LEVEL
         buss_write <= NONE;
 
         -- Make Sure B_IDX is 0 when we start using it in M0_0
-        RESET_B_IDX <= '1';        
+        RESET_B_IDX <= '1';
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= DONT_CARE;
+        
         if IDX_0_DONE = '1' then
           next_state <= MERGE1_0;
         else
@@ -212,6 +218,8 @@ begin  -- HIGH_LEVEL
         REG_SELECT <= B_IDX;
         
         RESET_B_IDX <= '0';
+        RESET_B0_IDX <= '0';
+        RESET_B1_IDX <= DONT_CARE;
         
         --All data read move to M1_0, else continue reading
         if (IDX_0_DONE = '1') then
@@ -238,6 +246,9 @@ begin  -- HIGH_LEVEL
       when MERGE1_0 =>
         -- Reset B_IDX to 0, since we start indexing from 0       
         RESET_B_IDX <= '1';
+        RESET_B0_IDX <= DONT_CARE;
+        RESET_B1_IDX <= DONT_CARE;
+        
         REG_INC <= '0';                 --Don't add now
         TMP_IDX_INC <= '0';
         -- Use B_IDX
@@ -263,7 +274,9 @@ begin  -- HIGH_LEVEL
         TMP_IDX_INC <= '1';
         -- Use B_IDX as index into B1
         REG_SELECT <= B_IDX;
-
+        
+        RESET_B0_IDX <= DONT_CARE;
+        RESET_B1_IDX <= DONT_CARE;
         RESET_B_IDX <= '0';
         
         --All data read move to M_0, else continue reading
@@ -290,6 +303,7 @@ begin  -- HIGH_LEVEL
           NEXT_STATE <= BUCKETIZE;
         end if;
 
+        RESET_B_IDX <= DONT_CARE;        
         RESET_B0_IDX <= '1';
         RESET_B1_IDX <= '1';
         
@@ -324,7 +338,7 @@ begin  -- HIGH_LEVEL
   -----------------------------------------------------------------------------
   -- Code for accessing buss
   -----------------------------------------------------------------------------
-  buss_logic: process(buss_load, buss_write)
+  buss_logic: process(buss_load, buss_write, last_bit)
   begin
 
     --The buss_write logic takes care of the X_LD signals
@@ -393,6 +407,7 @@ begin  -- HIGH_LEVEL
   end process DR_OUTPUT;
 
 end states;
+
 
 
 
