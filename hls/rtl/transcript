@@ -16,9 +16,17 @@
 # Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_arith(body)
 # Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_unsigned(body)
 # Loading work.workbench(sort_test)
-# ERROR: Recompile work.r_sort(r_sort_rtl) because work.fsm changed.
+# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.numeric_std(body)
+# Loading work.r_sort(r_sort_rtl)
+# Loading work.reg(reg_arch)
+# Loading work.add_one(add_one_arch)
+# Loading work.ram(ram_arch)
+# Loading work.demux_vector(demux_vector_arch)
+# Loading work.mux_bit(mux_arch)
+# Loading work.demux_bit(demux_arch)
+# Loading work.fsm(states)
+# Loading work.buffer_vector(buffer_arch)
 # Loading work.clock_gen(behavioral)
-# Error loading design
 #  
 # Building Library work  
 #  
@@ -86,37 +94,7 @@ do /home/dansv693/TDTS01/hls/rtl/build_work_1.do
 view wave
 # .wave
 do /home/dansv693/TDTS01/hls/rtl/wave.do
-vsim work.workbench(sort_test)
-# vsim work.workbench(sort_test) 
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../sunos5_251/../std.standard
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_1164(body)
-# Loading work.r_sort_pkg
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.numeric_bit(body)
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_arith(body)
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.std_logic_unsigned(body)
-# Loading work.workbench(sort_test)
-# Loading //sw/mentor/C.2/fpgadv/4.0/Modeltech/bin/../ieee.numeric_std(body)
-# Loading work.r_sort(r_sort_rtl)
-# Loading work.reg(reg_arch)
-# Loading work.add_one(add_one_arch)
-# Loading work.ram(ram_arch)
-# Loading work.demux_vector(demux_vector_arch)
-# Loading work.mux_bit(mux_arch)
-# Loading work.demux_bit(demux_arch)
-# Loading work.fsm(states)
-# Loading work.buffer_vector(buffer_arch)
-# Loading work.clock_gen(behavioral)
-destroy .wave
-view wave
-# .wave
-do /home/dansv693/TDTS01/hls/rtl/wave.do
-# ERROR: No objects found matching "/workbench/sorter/b0_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 12
-# ERROR: No objects found matching "/workbench/sorter/b1_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 16
-# ERROR: No objects found matching "/workbench/sorter/tmp_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 28
-run 300 us
+run 3 us;
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -129,10 +107,30 @@ run 300 us
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__0
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__0
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__0
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__2
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__2
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__2
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__3
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__3
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit/per_bit__3
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -143,160 +141,54 @@ run 300 us
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/b1_ram
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/b1_ram
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/b0_ram
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/b0_ram
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/tmp_ram
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/tmp_ram
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/tmp_adder
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ns  Iteration: 3  Instance: /workbench/sorter
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 1 ns  Iteration: 0  Instance: /workbench/sorter
-do /home/dansv693/TDTS01/hls/rtl/wave.do; restart -f ; run 3 us
-# ERROR: No objects found matching "/workbench/sorter/b0_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 12
-# ERROR: No objects found matching "/workbench/sorter/b1_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 16
-# ERROR: No objects found matching "/workbench/sorter/tmp_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 28
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_adder
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/tmp_adder
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 3  Instance: /workbench/sorter
+#    Time: 0 ns  Iteration: 4  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 1 ns  Iteration: 0  Instance: /workbench/sorter
-vcom -reportprogress 300 -work work {/home/dansv693/TDTS01/hls/rtl/workbench.vhd}
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Compiling entity workbench
-# -- Loading package std_logic_1164
-# -- Loading package r_sort_pkg
-# -- Loading package numeric_bit
-# -- Compiling architecture sort_test of workbench
-# -- Loading package std_logic_arith
-# -- Loading package std_logic_unsigned
-# -- Loading entity r_sort
-# -- Loading entity clock_gen
-# Load canceled
-vcom -reportprogress 300 -work work {/home/dansv693/TDTS01/hls/rtl/fsm.vhd}
-# Model Technology ModelSim SE/EE vcom 5.4d Compiler 2000.09 Sep 15 2000
-# -- Loading package standard
-# -- Loading package std_logic_1164
-# -- Compiling entity fsm
-# -- Compiling architecture states of fsm
-do /home/dansv693/TDTS01/hls/rtl/wave.do; restart -f ; run 3 us
-# ERROR: No objects found matching "/workbench/sorter/b0_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 12
-# ERROR: No objects found matching "/workbench/sorter/b1_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 16
-# ERROR: No objects found matching "/workbench/sorter/tmp_ram/storage"
-# Executing ONERROR command at macro /home/dansv693/TDTS01/hls/rtl/wave.do line 28
-# Loading work.workbench(sort_test)
-# Loading work.fsm(states)
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
+#    Time: 275 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
+#    Time: 425 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
+#    Time: 575 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter
+#    Time: 625 ns  Iteration: 4  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
+#    Time: 825 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
+#    Time: 1125 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
+#    Time: 1175 ns  Iteration: 4  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/mux_significant_bit
+#    Time: 1375 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
+#    Time: 1625 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
+#    Time: 1675 ns  Iteration: 4  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
+#    Time: 1875 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_ld_demux
+#    Time: 2025 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/reg_adder
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 0  Instance: /workbench/sorter/tmp_adder
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 1  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 2  Instance: /workbench/sorter/mux_significant_bit
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ns  Iteration: 3  Instance: /workbench/sorter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 1 ns  Iteration: 0  Instance: /workbench/sorter
+#    Time: 2175 ns  Iteration: 6  Instance: /workbench/sorter/mux_significant_bit
 # ** Failure: Test passed
 #    Time: 2225 ns  Iteration: 1  Instance: /workbench
 # Break at /home/dansv693/TDTS01/hls/rtl/workbench.vhd line 86
-quit

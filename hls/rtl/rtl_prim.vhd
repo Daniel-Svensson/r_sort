@@ -48,16 +48,15 @@ end reg;
 
 architecture reg_arch of reg is
   -- the input data is stored here
-
-  signal storage : std_logic_vector(input'range); 
+  signal storage : std_logic_vector(output'range); 
 begin  -- reg_arch
-  process (CLK,RST)
-   
+
+  process (CLK,RST)  
   begin
-    if(RST = '1') then
-      storage <= (others => '0');
-    elsif (rising_edge(CLK)) then
-      if (LD = '1') then
+    if rising_edge(CLK) then
+      if(RST = '1') then
+        storage <= (others => '0');
+      elsif (LD = '1') then
         storage <= input;        
       end if;
     end if;
@@ -92,40 +91,27 @@ end ram;
 architecture ram_arch of ram is
 --  type intern_storage is array (0 to address'high - 1) of std_logic_vector(0 to data'high - 1);
   type intern_storage is array (0 to 3) of std_logic_vector(3 downto 0);
---  signal storage : intern_storage := (others => (others => '0'));  
+  signal storage : intern_storage;  
 begin  -- reg_arch  
-  process (CLK, CS, LD, address)
-    variable storage  : intern_storage;  -- Memory
+  process (CLK, RST)
   begin
-    ---------------------------------------------------------------------------
-    -- Tri-state if not CS
-    
-    ---------------------------------------------------------------------------
-    if (CS = '0') then
-      data(data'range) <= (others => 'Z');    
-    ---------------------------------------------------------------------------
-  
-    ---------------------------------------------------------------------------
---    elsif (CS = '0') then
---      data(data'range) <= (others => 'Z');
-    ---------------------------------------------------------------------------
-    -- Write if not load
-    ---------------------------------------------------------------------------
-    elsif LD = '0' then
-        data <= storage(to_integer(unsigned(address))) after delay;
-    ---------------------------------------------------------------------------
-    -- Synchrounous load
-    ---------------------------------------------------------------------------
-    else  --LD = '1'
-      data(data'range) <= (others => 'Z');
+    if RST = '1' then
 
-      if (rising_edge(CLK)) then  --CS = 1
-        storage(to_integer(unsigned(address))) := data;
+      storage <= (others => (others => '0'));
+      
+    elsif (rising_edge(CLK)) then  --CS = 1
+      
+      if CS = '1' and LD = '1' then
+        storage(to_integer(unsigned(address))) <= data;        
       end if;
       
-    end if;
-    
+    end if;      
   end process;
+
+  data(data'range) <=  (others => 'Z') when (CS = '0') else
+                       (others => 'Z') when (LD = '1') else
+                       storage(to_integer(unsigned(address)));
+
 end ram_arch;
 
 -------------------------------------------------------------------------------
@@ -148,19 +134,33 @@ end demux_bit;
 
   
 architecture demux_arch of demux_bit is
-
+  
+  signal anded : std_logic_vector(input'range);
+  signal all_zero : std_logic_vector(input'range);
+  
 begin  -- add_one_arch
 
-  process(input,bit_select)
-    variable res : std_logic := 'X';
-  begin
-    for i in input'range loop
-      if (i = bit_select) then
-        res := input(i);
-      end if;
-    end loop;  -- i
-    output <= res after delay;
-  end process;
+  per_bit: for i in input'range generate
+    anded(i) <= input(i) when (i = to_integer(unsigned(bit_select)))
+                else '0';
+  end generate per_bit;
+
+  all_zero <= (others => '0');  
+  
+  output <= '0' when (anded = all_zero) else
+                          '1';
+  
+--  process(input,bit_select)
+--    variable res : std_logic := 'X';
+--  begin
+--    res := 
+--    for i in input'range loop
+--      if (i = bit_select) then
+--        res := input(i);
+--      end if;
+--    end loop;  -- i
+--    output <= res after delay;
+--  end process;
     
   
 end demux_arch;
