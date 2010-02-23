@@ -1,0 +1,2118 @@
+//
+//  FlexTest  v8.6_2.13    Fri Aug  7 14:20:33 PDT 1998
+//  Design Name = /home/dansv693/TDTS01/hls/rtl/r_sort_scan.edif
+//  Total Test Cycles = 111
+//  Total Scan Operations = 100
+//  Time = Tue Feb 23 13:33:09 2010
+//   
+//  *****Circuit Statistics*****
+//  # of primary inputs = 8
+//  # of primary outputs = 5
+//  # of library design cells = 249
+//  # of library leaf cells = 249
+//  # of combinational library primitives = 1080
+//  # of sequential library primitives = 80
+//  # of strongly connected components = 1
+//  # of simulation primitives = 2229
+//  # of scan cells = 80
+//  # of scan sequential elements = 80
+//   
+//  *****Fault List Statistics*****
+//  Fault Class              Uncollapsed   Collapsed
+//  Full (FU)                       2358        1623
+//  Det_simulation (DS)             1637        1109
+//  Det_implication (DI)             486         350
+//  Hyp_testable (HT)                 52          33
+//  Posdet_testable (PT)              27          16
+//  Unused (UU)                        2           2
+//  Tied (TI)                          2           1
+//  Redundant (RE)                     2           2
+//  Atpg_untestable (AU)              49          49
+//  Unobserved (UO)                  101          61
+//  Fault coverage                91.71%      91.40%
+//  Test coverage                 91.94%      91.69%
+//  ATPG effectiveness            94.04%      94.73%
+//   
+//  *****Test Patterns Statistics*****
+//  Total Test Cycles Generated = 111
+//  Total Scan Operations Generated = 100
+//  Total Test Cycles Simulated = 165
+//  Total Scan Operations Simulated = 157
+//   
+//  
+//  ***** Runtime Statistics *****
+//  Machine Name    : astmatix.ida.liu.se
+//  User Name       : dansv693
+//  User CPU Time   : 17.8 seconds
+//  System CPU Time : 1.6 seconds
+//  Memory Used     : 47.539M
+//  
+//
+//  Settings:
+//  Abort Limit = (backtrack=30, cycle=300, time=300 seconds)
+//  ATPG Limit = (cpu_seconds=off, cycle_count=off, test_coverage=off)
+//  ATPG Window = 1 cycles
+//  Capture Clock (ATPG) = none
+//  Capture Limit = off
+//  Checkpoint = off
+//  Clock Restriction = on
+//  Contention Check = (bus=(0,noatpg,warning), port=off)
+//  Driver Restriction = off
+//  Fault Sampling = 100%
+//  Fault Type = stuck_at
+//  Hypertrophic Limit = 30%
+//  Iddq Checks = none, noatpg, warning
+//  Iddq Strobe = label
+//  Identification Model = (clock=original, disturb=on)
+//  Instruction Atpg = off
+//  Internal Faults = on
+//  Logfile Handling =
+//  Loop Handling = simulation -duplicate off
+//  Net Dominance = wire
+//  Net Resolution = wire
+//  Nonscan Model = drc
+//  Pin Constraints (system default) = type NR, period 1, offset 0
+//  Pin Strobes (system default) = 1 [period 1]
+//  Possible Credit = 50%
+//  Pulse Generators = on
+//  Race Value = old
+//  Rail Strength = off
+//  Random ATPG = on
+//  Redundancy Identification = on
+//  Self Initialization = off
+//  Sequential Learning = on
+//  Stg Extraction = on
+//  Test Cycle Width = 3
+//  Tied Signal = x
+//  Trace Report = off
+//  Unused Net = (bus=on wire=off)
+//  Z Handling = (external=x, internal=x)
+
+SETUP =
+
+    TEST_CYCLE_WIDTH = 3;
+
+    DECLARE INPUT BUS "ibus" = "/scan_en", "/scan_in1", "/A<3>", "/A<2>",
+                      "/A<1>", "/A<0>", "/CLK", "/RST";
+    DECLARE OUTPUT BUS "obus_1" = "/DR", "/S<3>", "/S<2>", "/S<1>",
+                      "/S<0>";
+    CLOCK "/CLK" =
+        OFF_STATE = 0;
+    END;
+    CLOCK "/RST" =
+        OFF_STATE = 0;
+    END;
+    SCAN_GROUP "grp1" =
+        SCAN_CHAIN "chain1" =
+            SCAN_IN = "scan_in1";
+            SCAN_OUT = "DR";
+            LENGTH = 80;
+        END;
+        PROCEDURE shift "grp1_load_shift" =
+            FORCE_SCI "chain1" 0;
+            FORCE "/CLK" 1 2;
+            FORCE "/CLK" 0 3;
+            PERIOD 4;
+        END;
+        PROCEDURE shift "grp1_unload_shift" =
+            MEASURE_SCO "chain1" 1;
+            FORCE "/CLK" 1 2;
+            FORCE "/CLK" 0 3;
+            PERIOD 4;
+        END;
+        PROCEDURE load "grp1_load" =
+            FORCE "/scan_en" 1 0;
+            FORCE "/RST" 0 0;
+            FORCE "/CLK" 0 0;
+            APPLY "grp1_load_shift" 80 1;
+        END;
+        PROCEDURE unload "grp1_unload" =
+            FORCE "/scan_en" 1 0;
+            FORCE "/RST" 0 0;
+            FORCE "/CLK" 0 0;
+            APPLY "grp1_unload_shift" 80 1;
+        END;
+    END;
+
+
+END;
+
+CHAIN_TEST =
+
+    SCAN = 0;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
+                      XXXXXXXXXXXXXXXXXXXX";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001100110011001100110011001100110011001100110011001100110011\
+                      00110011001100110011";
+    END;
+
+    SCAN = 1;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110011001100110011001100110011001100110011001100110011001100\
+                      11001100110011001100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
+                      XXXXXXXXXXXXXXXXXXXX";
+    END;
+END;
+
+CYCLE_TEST =
+
+    SCAN = 0;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
+                XXXXXXXXXXXXXXXXXXXX";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100001010111100101011101010010000110001000111110101001\
+                00010011100011101100";
+    END;
+
+    CYCLE = 0;
+
+    FORCE "ibus" "01100000" 0;
+    MEASURE "obus_1" "01111" 1;
+    FORCE "ibus" "01100010" 1;
+    FORCE "ibus" "01100000" 2;
+
+    SCAN = 1;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101110101000011011100010101101111001110111000001010110\
+                11101100111110010001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111101101011101010110101110110111000100011100010101001000010\
+                00000001110111110010";
+    END;
+
+    CYCLE = 1;
+
+    FORCE "ibus" "10111000" 0;
+    MEASURE "obus_1" "00100" 1;
+    FORCE "ibus" "10111001" 1;
+    FORCE "ibus" "10111000" 2;
+
+    SCAN = 2;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110100011110101010000000101010011111101010110000001110\
+                10101111001000001101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001100000001000111101001010011010011001010110110010111011111\
+                10001000110100100100";
+    END;
+
+    CYCLE = 2;
+
+    FORCE "ibus" "00011100" 0;
+    MEASURE "obus_1" "11110" 1;
+    FORCE "ibus" "00011110" 1;
+    FORCE "ibus" "00011100" 2;
+
+    SCAN = 3;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111110111000010110101100101100010101001001111000100000\
+                01110111010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101100000010101101000110110110000011111010111011111100100110\
+                11111010010111100110";
+    END;
+
+    CYCLE = 3;
+
+    FORCE "ibus" "00100100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "00100110" 1;
+    FORCE "ibus" "00100100" 2;
+
+    SCAN = 4;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111101010010111001001001111100100101000100010011011001\
+                00001101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100000001101110111111001101100111000110010000011100000\
+                00101101010000010100";
+    END;
+
+    CYCLE = 4;
+
+    FORCE "ibus" "00100100" 0;
+    MEASURE "obus_1" "01010" 1;
+    FORCE "ibus" "00100110" 1;
+    FORCE "ibus" "00100100" 2;
+
+    SCAN = 5;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101111110010001001000110010011100111001101111100011111\
+                11011010111100110001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100011011011101100011011010001111000111010101101101001\
+                01110100000001001000";
+    END;
+
+    CYCLE = 5;
+
+    FORCE "ibus" "01011100" 0;
+    MEASURE "obus_1" "00111" 1;
+    FORCE "ibus" "01011110" 1;
+    FORCE "ibus" "01011100" 2;
+
+    SCAN = 6;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101100100100010010100100101110000111000101010010010110\
+                10000011111100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100100011010000000011100101010111111000000011111000001111\
+                10011100010000111110";
+    END;
+
+    CYCLE = 6;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "10111" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 7;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101100101111111101011010101000000111111100010111110000\
+                01100011111100010001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100101101111000010011010101010110110101010110010\
+                01001010000010011111";
+    END;
+
+    CYCLE = 7;
+
+    FORCE "ibus" "00010100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "00010110" 1;
+    FORCE "ibus" "00010100" 2;
+
+    SCAN = 8;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011010010000111101100101110101001001010101001101\
+                10110101011110110001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100011111011110101100101001001110100110100010110001011\
+                10001000001011111001";
+    END;
+
+    CYCLE = 8;
+
+    FORCE "ibus" "01110000" 0;
+    MEASURE "obus_1" "00101" 1;
+    FORCE "ibus" "01110010" 1;
+    FORCE "ibus" "01110000" 2;
+
+    SCAN = 9;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101100000100001011011010110110101011001011101001110100\
+                01110111010110010101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100100011101000011001011000011101100110110100111011101001\
+                11100011000011111101";
+    END;
+
+    CYCLE = 9;
+
+    FORCE "ibus" "01011100" 0;
+    MEASURE "obus_1" "10100" 1;
+    FORCE "ibus" "01011110" 1;
+    FORCE "ibus" "01011100" 2;
+
+    SCAN = 10;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101100010111100110100111100010011001001011010100010110\
+                00010100011110010001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100100010010111100101110010100110100111111110000000011000\
+                10111101011011001101";
+    END;
+
+    CYCLE = 10;
+
+    FORCE "ibus" "00100000" 0;
+    MEASURE "obus_1" "10011" 1;
+    FORCE "ibus" "00100010" 1;
+    FORCE "ibus" "00100000" 2;
+
+    SCAN = 11;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101101000011011001101011001111000000001101111100111\
+                01001010010110110001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100100001111111010000101100001100011011101010001001010100\
+                01010001011111101101";
+    END;
+
+    CYCLE = 11;
+
+    FORCE "ibus" "00110100" 0;
+    MEASURE "obus_1" "11101" 1;
+    FORCE "ibus" "00110110" 1;
+    FORCE "ibus" "00110100" 2;
+
+    SCAN = 12;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101110000000101111010011110011100100010101110110101011\
+                10100110010110010001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100001010101111010010101000000010101011111111001\
+                01010000101001001010";
+    END;
+
+    CYCLE = 12;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01000010" 1;
+    FORCE "ibus" "01000000" 2;
+
+    SCAN = 13;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011110101010000101101010111111101010100000000110\
+                10101111010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100001010101111010010101000100010101011111111001\
+                01010000101001001010";
+    END;
+
+    CYCLE = 13;
+
+    FORCE "ibus" "00000100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "00000110" 1;
+    FORCE "ibus" "00000100" 2;
+
+    SCAN = 14;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011110101010000101101010111011101010110000000110\
+                10101111010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100001010101111010010101000111010101011111110001\
+                01010000001011001011";
+    END;
+
+    CYCLE = 14;
+
+    FORCE "ibus" "00001100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "00001110" 1;
+    FORCE "ibus" "00001100" 2;
+
+    SCAN = 15;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011110101010000101101010011000101010110000001110\
+                10101111010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100001010101111000010101000111010101011101111101\
+                01010000001011001011";
+    END;
+
+    CYCLE = 15;
+
+    FORCE "ibus" "00111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "00111110" 1;
+    FORCE "ibus" "00111100" 2;
+
+    SCAN = 16;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011110101011000111101010011000101010110010000010\
+                10100111010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100001010101111000010101000111010101011101110101\
+                01010000001011001011";
+    END;
+
+    CYCLE = 16;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 17;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011110101011000111101010011000101010110010001010\
+                10100111010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100101010101110000010101000111010101011101110101\
+                01010000001001001010";
+    END;
+
+    CYCLE = 17;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 18;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011010101011001111101010011000101010110010001010\
+                10100111110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010100101010101110000010101000111110101011101110001\
+                01010000101001001010";
+    END;
+
+    CYCLE = 18;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 19;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101011010101011001111101010011000001010110010001110\
+                10100111010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100000010100101010101110000010101000111110101011101111101\
+                01010000001001001010";
+    END;
+
+    CYCLE = 19;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 20;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011111101011010101011001111101010011000001010110010000010\
+                10100111110110100101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010101101010101110000010101000111110101011101110101\
+                01010000101001001010";
+    END;
+
+    CYCLE = 20;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 21;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101010010101011001111101010011000001010110010001010\
+                10100111010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010101101010101110000010101000111110101011101101001\
+                01010000101011001010";
+    END;
+
+    CYCLE = 21;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 22;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101010010101011001111101010011000001010110010010110\
+                10100111110110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010101111010101110000010101000111110101011101100001\
+                01010000001001001010";
+    END;
+
+    CYCLE = 22;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 23;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011101101010000101011001111101010011000001010110010011110\
+                10100111110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010101111010101110000010101000111110101011101101001\
+                01010000001011001010";
+    END;
+
+    CYCLE = 23;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00000" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 24;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111101010000101011001111101010011000001010110010010110\
+                10100111010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100100010101111010101110000010101000111110101011101100101\
+                01010000001011001010";
+    END;
+
+    CYCLE = 24;
+
+    FORCE "ibus" "11111100" 0;
+    MEASURE "obus_1" "00000" 1;
+
+    SCAN = 25;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011011101010000101010001111101010111000001010100010011010\
+                10101111110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001000010001110111000101001100000110000000111111010000001011\
+                10010001000111000100";
+    END;
+
+    CYCLE = 25;
+
+    FORCE "ibus" "10101100" 0;
+    MEASURE "obus_1" "11101" 1;
+    FORCE "ibus" "10101110" 1;
+    FORCE "ibus" "10101100" 2;
+
+    SCAN = 26;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "101111011100010001110101100111110011111110000001011111101000\
+                11011101110001110111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101100110111110110110001011000001001000111011101001001000011\
+                01010011001000000101";
+    END;
+
+    CYCLE = 26;
+
+    FORCE "ibus" "10110000" 0;
+    MEASURE "obus_1" "00101" 1;
+    FORCE "ibus" "10110010" 1;
+    FORCE "ibus" "10110000" 2;
+
+    SCAN = 27;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100110010000010010011101001111101101110001000101101101111001\
+                01011001101111110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100111010000010110010000011001100100110011011101100111001100\
+                01100100011010101111";
+    END;
+
+    CYCLE = 27;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "01011" 1;
+
+    CYCLE = 28;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "01011" 1;
+    FORCE "ibus" "01010101" 1;
+    FORCE "ibus" "01010100" 2;
+
+    SCAN = 28;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110111101110101011000000101010011111101010110000000010\
+                10101111100101010000";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100111010000010110010000011001100100110011011101100111001100\
+                01100100011010101111";
+    END;
+
+    CYCLE = 29;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "01011" 1;
+
+    CYCLE = 30;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "01011" 1;
+    FORCE "ibus" "01010110" 1;
+    FORCE "ibus" "01010100" 2;
+
+    SCAN = 29;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "0111111011111010011011101XX11001101110XX00100010011XX0110111\
+                100100XX110100110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001010010110010100010011000111101110100100111100111010111000\
+                11011110110100110001";
+    END;
+
+    CYCLE = 31;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "10011" 1;
+
+    CYCLE = 32;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "10011" 1;
+    FORCE "ibus" "01000001" 1;
+    FORCE "ibus" "01000000" 2;
+
+    SCAN = 30;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110101101110101010000000101010011111101010100000000110\
+                10100111001011001110";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001010010110010100010011000111101110100100111100111010111000\
+                11011110110100110001";
+    END;
+
+    CYCLE = 33;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "10011" 1;
+
+    CYCLE = 34;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "10011" 1;
+    FORCE "ibus" "01000010" 1;
+    FORCE "ibus" "01000000" 2;
+
+    SCAN = 31;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "0101011010011010XX10X10011100XX10X01111011XX00X10001010X10X1\
+                0X101001010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001011000101011100011101101011011001101001110011010001001000\
+                00100111001111101101";
+    END;
+
+    CYCLE = 35;
+
+    FORCE "ibus" "11101100" 0;
+    MEASURE "obus_1" "11111" 1;
+
+    CYCLE = 36;
+
+    FORCE "ibus" "11101100" 0;
+    MEASURE "obus_1" "11111" 1;
+    FORCE "ibus" "11101101" 1;
+    FORCE "ibus" "11101100" 2;
+
+    SCAN = 32;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110110101110101010000000101010011111101010100000000110\
+                10101111110000010010";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001011000101011100011101101011011001101001110011010001001000\
+                00100111001111101101";
+    END;
+
+    CYCLE = 37;
+
+    FORCE "ibus" "11101100" 0;
+    MEASURE "obus_1" "11111" 1;
+
+    CYCLE = 38;
+
+    FORCE "ibus" "11101100" 0;
+    MEASURE "obus_1" "11111" 1;
+    FORCE "ibus" "11101110" 1;
+    FORCE "ibus" "11101100" 2;
+
+    SCAN = 33;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "101001110101000111000100101001001100101100011001011101101111\
+                10110001100000100100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001101100000111111110101011110010010110001101001011001110000\
+                00010100110101111111";
+    END;
+
+    CYCLE = 39;
+
+    FORCE "ibus" "10010100" 0;
+    MEASURE "obus_1" "11001" 1;
+    FORCE "ibus" "10010110" 1;
+    FORCE "ibus" "10010100" 2;
+
+    SCAN = 34;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100100111110000000010101000011011010011100101101001100011111\
+                11010110010100000001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000000110011000101110110000111000001011001101000100110110100\
+                00010110001011001100";
+    END;
+
+    CYCLE = 40;
+
+    FORCE "ibus" "00110000" 0;
+    MEASURE "obus_1" "10110" 1;
+    FORCE "ibus" "00110010" 1;
+    FORCE "ibus" "00110000" 2;
+
+    SCAN = 35;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "1101111011XXXX1X1X00X0011110X0X11X1010011X0X01X1001001X011X1\
+                1X100001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000100011101010011110000100001001010001010000100000000001010\
+                10101110011001000000";
+    END;
+
+    CYCLE = 41;
+
+    FORCE "ibus" "00010100" 0;
+    MEASURE "obus_1" "11111" 1;
+    FORCE "ibus" "00010110" 1;
+    FORCE "ibus" "00010100" 2;
+
+    SCAN = 36;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010111101010101100001110011110110111110101111010111111111001\
+                01010001110110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111000000001101010111011000111011001001110100111111100001111\
+                01111110111101111000";
+    END;
+
+    CYCLE = 42;
+
+    FORCE "ibus" "00010100" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "00010110" 1;
+    FORCE "ibus" "00010100" 2;
+
+    SCAN = 37;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000111111110010101000100111000100110110101011000010001110100\
+                10000000001010100111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111010101100111011011100011110111011000100011101010011001101\
+                00001010110000011111";
+    END;
+
+    CYCLE = 43;
+
+    FORCE "ibus" "00111000" 0;
+    MEASURE "obus_1" "01001" 1;
+    FORCE "ibus" "00111010" 1;
+    FORCE "ibus" "00111000" 2;
+
+    SCAN = 38;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "001111101011000100110001101001001100011111100010101100110110\
+                01110100010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011001110100001010111000100110010101111001100111111000100000\
+                11010101110100011111";
+    END;
+
+    CYCLE = 44;
+
+    FORCE "ibus" "01100000" 0;
+    MEASURE "obus_1" "11010" 1;
+    FORCE "ibus" "01100010" 1;
+    FORCE "ibus" "01100000" 2;
+
+    SCAN = 39;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "00101000111111X1010X01X1011X0110X01X1001X0011X00X0011X010011\
+                X01X1010010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110000100111111001000001010010010101010100000111000100001101\
+                00011011010111011101";
+    END;
+
+    CYCLE = 45;
+
+    FORCE "ibus" "00100100" 0;
+    MEASURE "obus_1" "00101" 1;
+    FORCE "ibus" "00100110" 1;
+    FORCE "ibus" "00100100" 2;
+
+    SCAN = 40;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000111101000000110111111100101101010101111111000111011110100\
+                11101100110100110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101111101001101001101101000110000011010001101101100011110110\
+                10110100101000011010";
+    END;
+
+    CYCLE = 46;
+
+    FORCE "ibus" "00100100" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "00100110" 1;
+    FORCE "ibus" "00100100" 2;
+
+    SCAN = 41;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "011011101010010010010011111001111100101111010010011100101101\
+                01001011010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111100000110011100100100111011011111111110111111101101001001\
+                10110010011010111000";
+    END;
+
+    CYCLE = 47;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "00011" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 42;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011111001100011010010000100100100000001000000000010111010\
+                00000101110100001111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101000001010111011101101001011100011100000110100100001101111\
+                00000111010010110010";
+    END;
+
+    CYCLE = 48;
+
+    FORCE "ibus" "00001000" 0;
+    MEASURE "obus_1" "00001" 1;
+    FORCE "ibus" "00001010" 1;
+    FORCE "ibus" "00001000" 2;
+
+    SCAN = 43;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110111111010110100010010111100011100011011001011001100010100\
+                11111000110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111000001001011011000111000011100111000011110111000101010111\
+                10110110011111010000";
+    END;
+
+    CYCLE = 49;
+
+    FORCE "ibus" "00010000" 0;
+    MEASURE "obus_1" "01111" 1;
+    FORCE "ibus" "00010010" 1;
+    FORCE "ibus" "00010000" 2;
+
+    SCAN = 44;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100111111011010000111000111100011000111101001000101010001100\
+                01000001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101000001000101000011010111101000000011000110110001101001011\
+                11000110000010010000";
+    END;
+
+    CYCLE = 50;
+
+    FORCE "ibus" "00101100" 0;
+    MEASURE "obus_1" "01000" 1;
+    FORCE "ibus" "00101110" 1;
+    FORCE "ibus" "00101100" 2;
+
+    SCAN = 45;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110111111011000101100101000010111111000111001001110010101000\
+                00111001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011111001011101100000001010001001001110001011000001011011100\
+                00101010000111110010";
+    END;
+
+    CYCLE = 51;
+
+    FORCE "ibus" "01110000" 0;
+    MEASURE "obus_1" "10100" 1;
+    FORCE "ibus" "01110010" 1;
+    FORCE "ibus" "01110000" 2;
+
+    SCAN = 46;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "101011111011010011111111101110110110101110100111100100100111\
+                11010101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100111001011101101000110100010000100111101011111111111100110\
+                10100010011010111100";
+    END;
+
+    CYCLE = 52;
+
+    FORCE "ibus" "00101000" 0;
+    MEASURE "obus_1" "00100" 1;
+    FORCE "ibus" "00101010" 1;
+    FORCE "ibus" "00101000" 2;
+
+    SCAN = 47;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111010110010111001011111111011000011100000000000111101\
+                01011101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000111001001100011101000000000010101111110000110000100000110\
+                01110110010111010110";
+    END;
+
+    CYCLE = 53;
+
+    FORCE "ibus" "01000100" 0;
+    MEASURE "obus_1" "11100" 1;
+    FORCE "ibus" "01000110" 1;
+    FORCE "ibus" "01000100" 2;
+
+    SCAN = 48;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111010011000010110111101101010100001111001111011111101\
+                10001001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011101000000000010010111101111010000000111110100010011010001\
+                11001011111100000001";
+    END;
+
+    CYCLE = 54;
+
+    FORCE "ibus" "01110100" 0;
+    MEASURE "obus_1" "11010" 1;
+    FORCE "ibus" "01110110" 1;
+    FORCE "ibus" "01110100" 2;
+
+    SCAN = 49;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000001111111111101101001010000101111111000001011111100101110\
+                00110100000011111110";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "010100000001000100011000101000111010001010010111010010100001\
+                01010001110010111101";
+    END;
+
+    CYCLE = 55;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "11110" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 50;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000111111110111011100111010111000101010101101000111101011110\
+                10100110000101100110";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111000000101101011111011001001110001000111111100111000010011\
+                00110000001010010101";
+    END;
+
+    CYCLE = 56;
+
+    FORCE "ibus" "00101000" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "00101010" 1;
+    FORCE "ibus" "00101000" 2;
+
+    SCAN = 51;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000010011110011100000111110010001110011010000011100110100000\
+                11001111110101001010";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "010000100110100010110001110111011100100001110001110010110110\
+                11111101001011011010";
+    END;
+
+    CYCLE = 57;
+
+    FORCE "ibus" "01111000" 0;
+    MEASURE "obus_1" "10000" 1;
+    FORCE "ibus" "01111010" 1;
+    FORCE "ibus" "01111000" 2;
+
+    SCAN = 52;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110111111000111100001111001010000111011111001110001101101101\
+                01000010110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001001101111001101000111101100110111000111101111010110101000\
+                01110110000110000110";
+    END;
+
+    CYCLE = 58;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "10110" 1;
+
+    CYCLE = 59;
+
+    FORCE "ibus" "00110000" 0;
+    MEASURE "obus_1" "10110" 1;
+    FORCE "ibus" "00110010" 1;
+    FORCE "ibus" "00110000" 2;
+
+    SCAN = 53;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111001010010111001010010101000111000100010101001001011\
+                10000001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100001101101100110011001001111000110100100101101101100110100\
+                00100000011011100100";
+    END;
+
+    CYCLE = 60;
+
+    FORCE "ibus" "00001000" 0;
+    MEASURE "obus_1" "01100" 1;
+
+    CYCLE = 61;
+
+    FORCE "ibus" "01110000" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "01110010" 1;
+    FORCE "ibus" "01110000" 2;
+
+    SCAN = 54;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111001101100101111110010011101111010010000000011001111\
+                10010111110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110001001001110010110100101100110110101100100000010110001110\
+                11101010001111101010";
+    END;
+
+    CYCLE = 62;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "01101" 1;
+    FORCE "ibus" "01010110" 1;
+    FORCE "ibus" "01010100" 2;
+
+    SCAN = 55;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "101111111001001101001010010011001001110111011111111011110101\
+                00010101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110001101101100100000001001110100100010000001000111110000001\
+                00001111010011001000";
+    END;
+
+    CYCLE = 63;
+
+    FORCE "ibus" "00101000" 0;
+    MEASURE "obus_1" "01100" 1;
+
+    CYCLE = 64;
+
+    FORCE "ibus" "01101000" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "01101010" 1;
+    FORCE "ibus" "01101000" 2;
+
+    SCAN = 56;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111110011000011010111111110001111011001111100111000001110000\
+                11111000110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100111001001101111011000010010000000100101101110011011011011\
+                10100101000010101110";
+    END;
+
+    CYCLE = 65;
+
+    FORCE "ibus" "00101100" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "00101110" 1;
+    FORCE "ibus" "00101100" 2;
+
+    SCAN = 57;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111000000010100111101100111111011010010001110100111000\
+                01011010110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100000010000001011101000001110000010000110110110010011100\
+                01100011011100100010";
+    END;
+
+    CYCLE = 66;
+
+    FORCE "ibus" "00000100" 0;
+    MEASURE "obus_1" "10010" 1;
+    FORCE "ibus" "00000110" 1;
+    FORCE "ibus" "00000100" 2;
+
+    SCAN = 58;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011111101111110100010111110001111101111001001011101100011\
+                10011100100011001101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111111010111000010111110000110110010110001101111100101100000\
+                11110110100101001000";
+    END;
+
+    CYCLE = 67;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "00110" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 59;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "00000011110011X101XX0XX0111X010XX1XX0011X001XX0XX0101X01001X\
+                X0XX0001010010110111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001101000101011010000101000011000100001010110111101111111100\
+                11100111100101000011";
+    END;
+
+    CYCLE = 68;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "11111" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 60;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "011011111010100101111010111100101011010101000000000000000110\
+                00010000010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111101100100010110100001000000000010100000011100000100111101\
+                00000010101001011000";
+    END;
+
+    CYCLE = 69;
+
+    FORCE "ibus" "01101000" 0;
+    MEASURE "obus_1" "01011" 1;
+    FORCE "ibus" "01101010" 1;
+    FORCE "ibus" "01101000" 2;
+
+    SCAN = 61;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000001101011101001011111111111111101011111100011001011000110\
+                11101101010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110101101100111110110010011011111000100000101000111001101001\
+                11111111110011111000";
+    END;
+
+    CYCLE = 70;
+
+    FORCE "ibus" "00110100" 0;
+    MEASURE "obus_1" "01001" 1;
+    FORCE "ibus" "00110110" 1;
+    FORCE "ibus" "00110100" 2;
+
+    SCAN = 62;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000101101011000001001101100100000111101111010111010110011010\
+                00000000010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000101001111100101100001000011000011001010001100010110100100\
+                01111110111111111111";
+    END;
+
+    CYCLE = 71;
+
+    FORCE "ibus" "00110100" 0;
+    MEASURE "obus_1" "10100" 1;
+    FORCE "ibus" "00110110" 1;
+    FORCE "ibus" "00110100" 2;
+
+    SCAN = 63;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "011111111000011010011111101100111100111101110011111001011111\
+                10000001010100110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100000110100110011100011011111101101100101111011100001011\
+                00101011011011110000";
+    END;
+
+    CYCLE = 72;
+
+    FORCE "ibus" "00000000" 0;
+    MEASURE "obus_1" "10000" 1;
+    FORCE "ibus" "00000010" 1;
+    FORCE "ibus" "00000000" 2;
+
+    SCAN = 64;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011111001011001100110100100000000110011010000100011111000\
+                11011100100101001111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110100000101100000010010101101010111010111010100100010001100\
+                11101000011010110100";
+    END;
+
+    CYCLE = 73;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 65;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000111111010011111100100010010101000001000101001001101110111\
+                01010111100101101111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111010000111101100001101110101101101110001000010111110010100\
+                01101111010001000100";
+    END;
+
+    CYCLE = 74;
+
+    FORCE "ibus" "01101100" 0;
+    MEASURE "obus_1" "00100" 1;
+    FORCE "ibus" "01101110" 1;
+    FORCE "ibus" "01101100" 2;
+
+    SCAN = 66;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000101111000010111110011001010010000001111111100010001101111\
+                10011000101100111011";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011110100100101000010001010101000111010010000111101000110010\
+                10011000101000110011";
+    END;
+
+    CYCLE = 75;
+
+    FORCE "ibus" "10101000" 0;
+    MEASURE "obus_1" "11000" 1;
+    FORCE "ibus" "10101010" 1;
+    FORCE "ibus" "10101000" 2;
+
+    SCAN = 67;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000010110110101111011101010101110001011011110000101110011010\
+                11001110101110011001";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101100000100100111010100101000000011001001101110101110110101\
+                00010010010011110000";
+    END;
+
+    CYCLE = 76;
+
+    FORCE "ibus" "00000100" 0;
+    MEASURE "obus_1" "01000" 1;
+    FORCE "ibus" "00000110" 1;
+    FORCE "ibus" "00000100" 2;
+
+    SCAN = 68;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111011011000101110010111111110110110010001010001001110\
+                11101101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101100000110001011001000110110011001111111001000010111001010\
+                01100010010111101100";
+    END;
+
+    CYCLE = 77;
+
+    FORCE "ibus" "00101000" 0;
+    MEASURE "obus_1" "00010" 1;
+    FORCE "ibus" "00101010" 1;
+    FORCE "ibus" "00101000" 2;
+
+    SCAN = 69;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111001110100110111001001100100000000110110101000111001\
+                10111101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100101100101111011001010000011000100110100101001101000101011\
+                10100110100010111000";
+    END;
+
+    CYCLE = 78;
+
+    FORCE "ibus" "00011000" 0;
+    MEASURE "obus_1" "01101" 1;
+    FORCE "ibus" "00011010" 1;
+    FORCE "ibus" "00011000" 2;
+
+    SCAN = 70;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010101101010000100110100111100111011001011010110001111011000\
+                01010101010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011101001111101100111110010001010011010101011000101010110001\
+                10100011011011111101";
+    END;
+
+    CYCLE = 79;
+
+    FORCE "ibus" "01000000" 0;
+    MEASURE "obus_1" "10100" 1;
+    FORCE "ibus" "01000010" 1;
+    FORCE "ibus" "01000000" 2;
+
+    SCAN = 71;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "001010111000010011000000111110101100101010100111000101000010\
+                01011110110100110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001100100001010011001111111101111011011001110100010000011111\
+                10100110100011111101";
+    END;
+
+    CYCLE = 80;
+
+    FORCE "ibus" "00111000" 0;
+    MEASURE "obus_1" "11111" 1;
+    FORCE "ibus" "00111001" 1;
+    FORCE "ibus" "00111000" 2;
+
+    SCAN = 72;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110110101110101010000000101010111111101010100000000010\
+                10101111011100000010";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001111111100010111110010000011001000101000010000010000000001\
+                00000101000000101111";
+    END;
+
+    CYCLE = 81;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "11011" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 73;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "01101000101110X000X01100111X001X01110101X110X11110111X11001X\
+                11110010110110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "010101000110101110110001101100000001000010111010100100010110\
+                01000001100001001101";
+    END;
+
+    CYCLE = 82;
+
+    FORCE "ibus" "01101000" 0;
+    MEASURE "obus_1" "10000" 1;
+    FORCE "ibus" "01101010" 1;
+    FORCE "ibus" "01101000" 2;
+
+    SCAN = 74;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "001111111001010001101111010011101110011101000101001011101100\
+                10111110010110110110";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011101101011011011101001101001011001110111001001111010100000\
+                10111000101011110111";
+    END;
+
+    CYCLE = 83;
+
+    FORCE "ibus" "01001000" 0;
+    MEASURE "obus_1" "10111" 1;
+    FORCE "ibus" "01001001" 1;
+    FORCE "ibus" "01001000" 2;
+
+    SCAN = 75;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110100101110101010000000101010011111101010100000001110\
+                10100111010100001000";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111101001100111101011110000111100010001011110110111111001000\
+                01100100010001000101";
+    END;
+
+    CYCLE = 84;
+
+    FORCE "ibus" "01101000" 0;
+    MEASURE "obus_1" "01001" 1;
+    FORCE "ibus" "01101010" 1;
+    FORCE "ibus" "01101000" 2;
+
+    SCAN = 76;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "001011111011000010000001111000001101010100001001000000111010\
+                10011011110110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "110101100100111001001101010000001010111011100000011011011010\
+                00101010111110100100";
+    END;
+
+    CYCLE = 85;
+
+    FORCE "ibus" "01100100" 0;
+    MEASURE "obus_1" "01001" 1;
+    FORCE "ibus" "01100110" 1;
+    FORCE "ibus" "01100100" 2;
+
+    SCAN = 77;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000101101011000110110011001111110101100100011111110100101001\
+                11011001010100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "111101001101111111101110011100110110111011110110110011001011\
+                10001111100001110011";
+    END;
+
+    CYCLE = 86;
+
+    FORCE "ibus" "01110000" 0;
+    MEASURE "obus_1" "01101" 1;
+    FORCE "ibus" "01110010" 1;
+    FORCE "ibus" "01110000" 2;
+
+    SCAN = 78;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "001011111010000001010001100011001001100100001001001100111000\
+                01110000010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100100001111010011010001111101000010111110110001010011011111\
+                00100110101001001111";
+    END;
+
+    CYCLE = 87;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "00111" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 79;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010111111000101100101111000010110101000001001010111100100100\
+                11010001010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001101100110011111111000110011010010001011110100001111101011\
+                01101011100001000010";
+    END;
+
+    CYCLE = 88;
+
+    FORCE "ibus" "01111100" 0;
+    MEASURE "obus_1" "10011" 1;
+    FORCE "ibus" "01111110" 1;
+    FORCE "ibus" "01111100" 2;
+
+    SCAN = 80;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "011011101001100000000101001100101100010100001011010000011000\
+                10010100010110110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001101001111001011101001000001011001100001111011001011000011\
+                01100011101111110011";
+    END;
+
+    CYCLE = 89;
+
+    FORCE "ibus" "01101100" 0;
+    MEASURE "obus_1" "10110" 1;
+    FORCE "ibus" "01101110" 1;
+    FORCE "ibus" "01101100" 2;
+
+    SCAN = 81;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010000111000110100010111101110100110010110000100110100110000\
+                10011110010100110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "010010000111001110001010101100011000000011100010100110000010\
+                01010000100001100101";
+    END;
+
+    CYCLE = 90;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "10110" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 82;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000100011100110001110100010011100011011100011101001000110011\
+                10100111010110111110";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101101000110001000000100111001010101111100110110010011110001\
+                00100110111000110011";
+    END;
+
+    CYCLE = 91;
+
+    FORCE "ibus" "01001000" 0;
+    MEASURE "obus_1" "00010" 1;
+    FORCE "ibus" "01001010" 1;
+    FORCE "ibus" "01001000" 2;
+
+    SCAN = 83;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "011010111101110111111010010110101010000011001001101000000010\
+                11011011010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101111101100101000101011011010000001000111100100110011001111\
+                00000100000100011101";
+    END;
+
+    CYCLE = 92;
+
+    FORCE "ibus" "11000000" 0;
+    MEASURE "obus_1" "01000" 1;
+    FORCE "ibus" "11000001" 1;
+    FORCE "ibus" "11000000" 2;
+
+    SCAN = 84;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011110111011110101010000000101010111111101010100000000010\
+                10101111111011100010";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000011101111010011011110011100010000101111101101110111111011\
+                00010111010011001010";
+    END;
+
+    CYCLE = 93;
+
+    FORCE "ibus" "00010100" 0;
+    MEASURE "obus_1" "10111" 1;
+
+    CYCLE = 94;
+
+    FORCE "ibus" "00111000" 0;
+    MEASURE "obus_1" "10111" 1;
+    FORCE "ibus" "00111010" 1;
+    FORCE "ibus" "00111000" 2;
+
+    SCAN = 85;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111011111101100001100011001111010000100010001000001010\
+                10100000110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101001001001110010110010000011011010010001001100001100101010\
+                00011101011010001110";
+    END;
+
+    CYCLE = 95;
+
+    FORCE "ibus" "00110000" 0;
+    MEASURE "obus_1" "01101" 1;
+    FORCE "ibus" "00110010" 1;
+    FORCE "ibus" "00110000" 2;
+
+    SCAN = 86;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111011111101001101111101100101101110110011100011001001\
+                11100010110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101001000011010000011111111000110101110101110011110000010111\
+                10110110011111111110";
+    END;
+
+    CYCLE = 96;
+
+    FORCE "ibus" "01010100" 0;
+    MEASURE "obus_1" "00111" 1;
+    FORCE "ibus" "01010110" 1;
+    FORCE "ibus" "01010100" 2;
+
+    SCAN = 87;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111100101111100000000111001010101010001100011111101100\
+                01000001110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101000001001100011111101011110010010010111110001100111011011\
+                01001010010111000000";
+    END;
+
+    CYCLE = 97;
+
+    FORCE "ibus" "00001000" 0;
+    MEASURE "obus_1" "01100" 1;
+    FORCE "ibus" "00001010" 1;
+    FORCE "ibus" "00001000" 2;
+
+    SCAN = 88;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110111111001111110000010100001101101001000101110001000101000\
+                10111101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101111001010001001110001000101100100000111111001111011011001\
+                01011001000111101110";
+    END;
+
+    CYCLE = 98;
+
+    FORCE "ibus" "00110000" 0;
+    MEASURE "obus_1" "00010" 1;
+    FORCE "ibus" "00110010" 1;
+    FORCE "ibus" "00110000" 2;
+
+    SCAN = 89;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110001111001110110001111111011011011111000100110000100101010\
+                10100110110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "010110001000100011111101000000001101010110010010100010011011\
+                10110011011110010010";
+    END;
+
+    CYCLE = 99;
+
+    FORCE "ibus" "00011000" 0;
+    MEASURE "obus_1" "11000" 1;
+    FORCE "ibus" "00011010" 1;
+    FORCE "ibus" "00011000" 2;
+
+    SCAN = 90;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100101111000101110000010111111110010001001001101001101111000\
+                01000100110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011110001011101011000010111000001011010110001011001101100101\
+                01001001010110010000";
+    END;
+
+    CYCLE = 100;
+
+    FORCE "ibus" "00111100" 0;
+    MEASURE "obus_1" "10100" 1;
+    FORCE "ibus" "00111110" 1;
+    FORCE "ibus" "00111100" 2;
+
+    SCAN = 91;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100001111001100100111101000111110100001000110100110010011110\
+                10110110110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101100001110010011001010110100000110001111110101010011001001\
+                11110110001110000100";
+    END;
+
+    CYCLE = 101;
+
+    FORCE "ibus" "00110100" 0;
+    MEASURE "obus_1" "00011" 1;
+    FORCE "ibus" "00110110" 1;
+    FORCE "ibus" "00110100" 2;
+
+    SCAN = 92;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111001101100110101101011111001110000001010110100111010\
+                00000101110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "001100000100111101111010000010000111010101011100100111110101\
+                01111101101001000101";
+    END;
+
+    CYCLE = 102;
+
+    FORCE "ibus" "01101000" 0;
+    MEASURE "obus_1" "11001" 1;
+    FORCE "ibus" "01101010" 1;
+    FORCE "ibus" "01101000" 2;
+
+    SCAN = 93;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "010011111011000010010101111101111000001010100111001000001110\
+                00001010010110110100";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011001000010111011100010010000001111011011001011100011010001\
+                10010101010011100110";
+    END;
+
+    CYCLE = 103;
+
+    FORCE "ibus" "01001000" 0;
+    MEASURE "obus_1" "10001" 1;
+    FORCE "ibus" "01001010" 1;
+    FORCE "ibus" "01001000" 2;
+
+    SCAN = 94;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "101011011100001100011100101011110000000100110100001101100010\
+                01101010100100111101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "101000001011001000111110110011000101101111001001110011011011\
+                01110101011011010100";
+    END;
+
+    CYCLE = 104;
+
+    FORCE "ibus" "00101100" 0;
+    MEASURE "obus_1" "00110" 1;
+    FORCE "ibus" "00101110" 1;
+    FORCE "ibus" "00101100" 2;
+
+    SCAN = 95;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110111111011000101000001001100111010010000010110011100101000\
+                10001010110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011110001000001000111100011100110000101111000111110001010011\
+                01110101011011111100";
+    END;
+
+    CYCLE = 105;
+
+    FORCE "ibus" "00100000" 0;
+    MEASURE "obus_1" "11010" 1;
+    FORCE "ibus" "00100010" 1;
+    FORCE "ibus" "00100000" 2;
+
+    SCAN = 96;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100011011001101111000011100111001111110000111000001110100000\
+                10001010110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "000001001010000110000110000001100001011110001110010111111100\
+                11001010001011001100";
+    END;
+
+    CYCLE = 106;
+
+    FORCE "ibus" "01001000" 0;
+    MEASURE "obus_1" "10010" 1;
+    FORCE "ibus" "01001010" 1;
+    FORCE "ibus" "01001000" 2;
+
+    SCAN = 97;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "111111111010011001111000111110011110000101110001101000000111\
+                00111100110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011000001001110000111010111111011111111010101011011001001110\
+                00110110010110001010";
+    END;
+
+    CYCLE = 107;
+
+    FORCE "ibus" "00001000" 0;
+    MEASURE "obus_1" "11101" 1;
+    FORCE "ibus" "00001010" 1;
+    FORCE "ibus" "00001000" 2;
+
+    SCAN = 98;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "100111111010111111000100001000100000000001010100100100110101\
+                11001000110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "011100000010111110110011100010101011111011110101000110000000\
+                01111000011100000000";
+    END;
+
+    CYCLE = 108;
+
+    FORCE "ibus" "01011000" 0;
+    MEASURE "obus_1" "10001" 1;
+    FORCE "ibus" "01011010" 1;
+    FORCE "ibus" "01011000" 2;
+
+    SCAN = 99;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "000011111101000001001100011101010100000100001010101001111111\
+                10000111100011101111";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "100010001111001000000111110011001011011100111000101100000100\
+                01100100000110101110";
+    END;
+
+    CYCLE = 109;
+
+    FORCE "ibus" "01000100" 0;
+    MEASURE "obus_1" "00110" 1;
+
+    CYCLE = 110;
+
+    FORCE "ibus" "01111000" 0;
+    MEASURE "obus_1" "00110" 1;
+    FORCE "ibus" "01111010" 1;
+    FORCE "ibus" "01111000" 2;
+
+    SCAN = 100;
+
+    APPLY "grp1_unload" 0 =
+        CHAIN "chain1" = "110101111001000110111001001100110000000010010101000011011111\
+                10010011110100110101";
+    END;
+    APPLY "grp1_load" 0 =
+        CHAIN "chain1" = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\
+                XXXXXXXXXXXXXXXXXXXX";
+    END;
+
+END;
+
+SCAN_CELLS =
+    SCAN_GROUP "grp1" =
+        SCAN_CHAIN "chain1" =
+            SCAN_CELL = 0 MASTER     TFFF "/STATE_MACHINE/reg_DR" "" "SD" "Q";
+            SCAN_CELL = 1 MASTER     TFFF "/STATE_MACHINE/reg_current_state(8)" "" "SD" "Q";
+            SCAN_CELL = 2 MASTER     TFFF "/STATE_MACHINE/reg_current_state(6)" "" "SD" "Q";
+            SCAN_CELL = 3 MASTER     TFFF "/STATE_MACHINE/reg_current_state(7)" "" "SD" "Q";
+            SCAN_CELL = 4 MASTER     FFFT "/STATE_MACHINE/reg_current_state(5)" "" "SD" "QN";
+            SCAN_CELL = 5 MASTER     FTFF "/STATE_MACHINE/reg_current_state(4)" "" "SD" "Q";
+            SCAN_CELL = 6 MASTER     FTFF "/STATE_MACHINE/reg_current_state(2)" "" "SD" "Q";
+            SCAN_CELL = 7 MASTER     FTFF "/STATE_MACHINE/reg_current_state(3)" "" "SD" "Q";
+            SCAN_CELL = 8 MASTER     FTFF "/STATE_MACHINE/reg_current_state(0)" "" "SD" "Q";
+            SCAN_CELL = 9 MASTER     FTFF "/STATE_MACHINE/reg_current_state(1)" "" "SD" "Q";
+            SCAN_CELL = 10 MASTER     TTFT "/R_OUT_REG_reg_storage(3)" "" "SD" "QN";
+            SCAN_CELL = 11 MASTER     FFFT "/R_OUT_REG_reg_storage(2)" "" "SD" "QN";
+            SCAN_CELL = 12 MASTER     TTFT "/R_OUT_REG_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 13 MASTER     FFFT "/R_OUT_REG_reg_storage(0)" "" "SD" "QN";
+            SCAN_CELL = 14 MASTER     FTFF "/TMP_RAM_reg_storage(3)(3)" "" "SD" "Q";
+            SCAN_CELL = 15 MASTER     FTFF "/TMP_RAM_reg_storage(2)(3)" "" "SD" "Q";
+            SCAN_CELL = 16 MASTER     FTFF "/TMP_RAM_reg_storage(1)(3)" "" "SD" "Q";
+            SCAN_CELL = 17 MASTER     TTFT "/B0_RAM_reg_storage(3)(3)" "" "SD" "QN";
+            SCAN_CELL = 18 MASTER     FFFT "/B0_RAM_reg_storage(2)(3)" "" "SD" "QN";
+            SCAN_CELL = 19 MASTER     TTFT "/B0_RAM_reg_storage(0)(3)" "" "SD" "QN";
+            SCAN_CELL = 20 MASTER     FFFT "/B1_RAM_reg_storage(3)(3)" "" "SD" "QN";
+            SCAN_CELL = 21 MASTER     TTFT "/B1_RAM_reg_storage(2)(3)" "" "SD" "QN";
+            SCAN_CELL = 22 MASTER     FFFT "/B1_RAM_reg_storage(0)(3)" "" "SD" "QN";
+            SCAN_CELL = 23 MASTER     TTFT "/R_IN_REG_reg_storage(3)" "" "SD" "QN";
+            SCAN_CELL = 24 MASTER     TFFF "/B1_RAM_reg_storage(1)(3)" "" "SD" "Q";
+            SCAN_CELL = 25 MASTER     TFFF "/B0_RAM_reg_storage(1)(3)" "" "SD" "Q";
+            SCAN_CELL = 26 MASTER     TFFF "/TMP_RAM_reg_storage(0)(3)" "" "SD" "Q";
+            SCAN_CELL = 27 MASTER     TFFF "/TMP_RAM_reg_storage(3)(1)" "" "SD" "Q";
+            SCAN_CELL = 28 MASTER     TFFF "/TMP_RAM_reg_storage(2)(1)" "" "SD" "Q";
+            SCAN_CELL = 29 MASTER     TFFF "/TMP_RAM_reg_storage(1)(1)" "" "SD" "Q";
+            SCAN_CELL = 30 MASTER     FFFT "/B0_RAM_reg_storage(3)(1)" "" "SD" "QN";
+            SCAN_CELL = 31 MASTER     TTFT "/B0_RAM_reg_storage(2)(1)" "" "SD" "QN";
+            SCAN_CELL = 32 MASTER     FFFT "/B0_RAM_reg_storage(0)(1)" "" "SD" "QN";
+            SCAN_CELL = 33 MASTER     TTFT "/B1_RAM_reg_storage(3)(1)" "" "SD" "QN";
+            SCAN_CELL = 34 MASTER     FFFT "/B1_RAM_reg_storage(2)(1)" "" "SD" "QN";
+            SCAN_CELL = 35 MASTER     TTFT "/B1_RAM_reg_storage(0)(1)" "" "SD" "QN";
+            SCAN_CELL = 36 MASTER     FFFT "/R_IN_REG_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 37 MASTER     FTFF "/B1_RAM_reg_storage(1)(1)" "" "SD" "Q";
+            SCAN_CELL = 38 MASTER     FTFF "/B0_RAM_reg_storage(1)(1)" "" "SD" "Q";
+            SCAN_CELL = 39 MASTER     FTFF "/TMP_RAM_reg_storage(0)(1)" "" "SD" "Q";
+            SCAN_CELL = 40 MASTER     FTFF "/TMP_RAM_reg_storage(3)(0)" "" "SD" "Q";
+            SCAN_CELL = 41 MASTER     FTFF "/TMP_RAM_reg_storage(2)(0)" "" "SD" "Q";
+            SCAN_CELL = 42 MASTER     FTFF "/TMP_RAM_reg_storage(1)(0)" "" "SD" "Q";
+            SCAN_CELL = 43 MASTER     TTFT "/B0_RAM_reg_storage(3)(0)" "" "SD" "QN";
+            SCAN_CELL = 44 MASTER     FFFT "/B0_RAM_reg_storage(2)(0)" "" "SD" "QN";
+            SCAN_CELL = 45 MASTER     TTFT "/B0_RAM_reg_storage(0)(0)" "" "SD" "QN";
+            SCAN_CELL = 46 MASTER     FFFT "/B1_RAM_reg_storage(3)(0)" "" "SD" "QN";
+            SCAN_CELL = 47 MASTER     TTFT "/B1_RAM_reg_storage(2)(0)" "" "SD" "QN";
+            SCAN_CELL = 48 MASTER     FFFT "/B1_RAM_reg_storage(0)(0)" "" "SD" "QN";
+            SCAN_CELL = 49 MASTER     TTFT "/R_IN_REG_reg_storage(0)" "" "SD" "QN";
+            SCAN_CELL = 50 MASTER     TFFF "/B1_RAM_reg_storage(1)(0)" "" "SD" "Q";
+            SCAN_CELL = 51 MASTER     TFFF "/B0_RAM_reg_storage(1)(0)" "" "SD" "Q";
+            SCAN_CELL = 52 MASTER     TFFF "/TMP_RAM_reg_storage(0)(0)" "" "SD" "Q";
+            SCAN_CELL = 53 MASTER     TFFF "/TMP_RAM_reg_storage(3)(2)" "" "SD" "Q";
+            SCAN_CELL = 54 MASTER     TFFF "/TMP_RAM_reg_storage(2)(2)" "" "SD" "Q";
+            SCAN_CELL = 55 MASTER     TFFF "/TMP_RAM_reg_storage(1)(2)" "" "SD" "Q";
+            SCAN_CELL = 56 MASTER     TFFF "/R_TMP_IDX_reg_storage(1)" "" "SD" "Q";
+            SCAN_CELL = 57 MASTER     TFFF "/R_TMP_IDX_reg_storage(0)" "" "SD" "Q";
+            SCAN_CELL = 58 MASTER     FFFT "/B0_RAM_reg_storage(3)(2)" "" "SD" "QN";
+            SCAN_CELL = 59 MASTER     TTFT "/B0_RAM_reg_storage(2)(2)" "" "SD" "QN";
+            SCAN_CELL = 60 MASTER     FFFT "/B0_RAM_reg_storage(0)(2)" "" "SD" "QN";
+            SCAN_CELL = 61 MASTER     TTFT "/B1_RAM_reg_storage(3)(2)" "" "SD" "QN";
+            SCAN_CELL = 62 MASTER     FFFT "/B1_RAM_reg_storage(2)(2)" "" "SD" "QN";
+            SCAN_CELL = 63 MASTER     TTFT "/B1_RAM_reg_storage(0)(2)" "" "SD" "QN";
+            SCAN_CELL = 64 MASTER     FFFT "/R_IN_REG_reg_storage(2)" "" "SD" "QN";
+            SCAN_CELL = 65 MASTER     FTFF "/B1_RAM_reg_storage(1)(2)" "" "SD" "Q";
+            SCAN_CELL = 66 MASTER     FTFF "/B0_RAM_reg_storage(1)(2)" "" "SD" "Q";
+            SCAN_CELL = 67 MASTER     FTFF "/TMP_RAM_reg_storage(0)(2)" "" "SD" "Q";
+            SCAN_CELL = 68 MASTER     TTFT "/R_S_BIT_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 69 MASTER     FFFT "/R_B1_IDX_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 70 MASTER     TTFT "/R_B_IDX_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 71 MASTER     FFFT "/R_B0_IDX_reg_storage(1)" "" "SD" "QN";
+            SCAN_CELL = 72 MASTER     FTFF "/R_S_BIT_reg_storage(0)" "" "SD" "Q";
+            SCAN_CELL = 73 MASTER     TTFT "/R_B1_IDX_reg_storage(0)" "" "SD" "QN";
+            SCAN_CELL = 74 MASTER     FFFT "/R_B_IDX_reg_storage(0)" "" "SD" "QN";
+            SCAN_CELL = 75 MASTER     FTFF "/R_B0_IDX_reg_storage(0)" "" "SD" "Q";
+            SCAN_CELL = 76 MASTER     TTFT "/R_B1_IDX_reg_storage(2)" "" "SD" "QN";
+            SCAN_CELL = 77 MASTER     FFFT "/R_B_IDX_reg_storage(2)" "" "SD" "QN";
+            SCAN_CELL = 78 MASTER     TTFT "/R_B0_IDX_reg_storage(2)" "" "SD" "QN";
+            SCAN_CELL = 79 MASTER     FFFT "/R_S_BIT_reg_storage(2)" "" "SD" "QN";
+        END;
+    END;
+END;

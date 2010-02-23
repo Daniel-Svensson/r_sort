@@ -183,27 +183,27 @@ architecture R_SORT_RTL of R_SORT is
   -----------------------------------------------------------------------------
   -- Signals for TMP_IDX register
   -----------------------------------------------------------------------------
-  signal TMP_IDX_PLUS_1 : INDEX_TYPE := (others => 'X');  -- TMP_IDX + 1
-  signal INDEX_MAX_VALUE : INDEX_TYPE := (others => '1');
+  signal TMP_IDX_PLUS_1 : INDEX_TYPE;  -- TMP_IDX + 1
+  constant INDEX_MAX_VALUE : INDEX_TYPE := (others => '1');
   signal TMP_IDX : INDEX_TYPE;          -- TMP_IDX value
   signal TMP_MAX : std_logic;           -- True when the tmp_idx index the last item in tmp
   
-  signal TMP_IDX_LD : std_logic := 'X';  -- Increment TMP_IDX
+  signal TMP_IDX_LD : std_logic;  -- Increment TMP_IDX
   
   -----------------------------------------------------------------------------
   -- Signals for temp ram
   -----------------------------------------------------------------------------
-  signal TMP_CS : std_logic := 'X';
-  signal TMP_RST : std_logic := rst;   
-  signal TMP_LD : std_logic := 'X';
+  signal TMP_CS : std_logic;
+  signal TMP_RST : std_logic;   
+  signal TMP_LD : std_logic;
 
 
   -----------------------------------------------------------------------------
   -- Signals for bucket 0 and 1
   -----------------------------------------------------------------------------
-  signal B0_CS : std_logic := 'X';
-  signal B1_CS : std_logic := 'X';
-  signal B_LD : std_logic := 'X';
+  signal B0_CS : std_logic;
+  signal B1_CS : std_logic;
+  signal B_LD : std_logic;
 
   -----------------------------------------------------------------------------
   -- Signals for IDX_0,IDX_1,IDX and s_bit  registers
@@ -258,10 +258,13 @@ architecture R_SORT_RTL of R_SORT is
   constant MUX_BIT_DELAY : TIME  := 1 ns;   -- default reg delay
 
 
-  signal HIGH : std_logic := '1';       -- Always one
+  signal HIGH : std_logic;       -- Always one
   
 begin  -- HIGH_LEVEL2
-
+  HIGH <= '1';
+  tmp_rst <= RST;
+  
+  
   -- TMP_IDX
   R_TMP_IDX: reg
     generic map (delay => REG_DELAY)

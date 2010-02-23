@@ -74,22 +74,30 @@ architecture states of FSM is
   constant B1_IDX : std_logic_vector(1 downto 0) := "01";  -- B1 reg_select value
   constant B_IDX : std_logic_vector(1 downto 0) := "10";   -- B reg_select value
   constant S_BIT : std_logic_vector(1 downto 0) := "11";   -- S_BIT reg_select value
-  
+
+  signal WANT_RESET_B_IDX :  std_logic;
+  signal WANT_RESET_B0_IDX : std_logic;
+  signal WANT_RESET_B1_IDX : std_logic;
 begin  -- HIGH_LEVEL
 
   --Change state synchronously
   STATE_CHANGE: process(RST, CLK)
   begin
-    if (rising_edge(CLK)) then
       if (rst = '1') then
         current_state <= IDLE;
-      else
+      elsif (rising_edge(CLK)) then
         current_state <= next_state;
       end if;
-    end if;
   end process STATE_CHANGE;
 
 
+  -- OR'ed resets
+  RESET_B_IDX <= '1' when RST = '1' else
+                 WANT_RESET_B_IDX;
+  RESET_B0_IDX <= '1' when RST = '1' else
+                 WANT_RESET_B0_IDX;
+  RESET_B1_IDX <= '1' when RST = '1' else
+                 WANT_RESET_B1_IDX;
   -----------------------------------------------------------------------------
   -- Decode the next state
   -----------------------------------------------------------------------------
@@ -110,9 +118,9 @@ begin  -- HIGH_LEVEL
         reg_inc <= '0';
         tmp_idx_inc <= '0';
 
-        RESET_B_IDX <= '1';
-        RESET_B0_IDX <= '1';
-        RESET_B1_IDX <= '1';
+        WANT_RESET_B_IDX <= '1';
+        WANT_RESET_B0_IDX <= '1';
+        WANT_RESET_B1_IDX <= '1';
         
         -----------------------------------------------------------------------
         -- INPUT, input step, load input data to correct bucket, until all data
@@ -120,9 +128,9 @@ begin  -- HIGH_LEVEL
         -----------------------------------------------------------------------
       when INPUT =>
 
-        RESET_B_IDX <= DONT_CARE;        
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= '0';
+        WANT_RESET_B_IDX <= DONT_CARE;        
+        WANT_RESET_B0_IDX <= '0';
+        WANT_RESET_B1_IDX <= '0';
         
         -- Select bucet to put data in
         if (CURRENT_S_BIT = '0') then
@@ -150,9 +158,9 @@ begin  -- HIGH_LEVEL
         -----------------------------------------------------------------------
       when BUCKETIZE =>
 
-        RESET_B_IDX <= DONT_CARE;        
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= '0';
+        WANT_RESET_B_IDX <= DONT_CARE;        
+        WANT_RESET_B0_IDX <= '0';
+        WANT_RESET_B1_IDX <= '0';
         
         -- Select bucket to put data in
         if (CURRENT_S_BIT = '0') then
@@ -188,9 +196,9 @@ begin  -- HIGH_LEVEL
         buss_dir <= NONE;
 
         -- Make Sure B_IDX is 0 when we start using it in M0_0
-        RESET_B_IDX <= '1';
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= DONT_CARE;
+        WANT_RESET_B_IDX <= '1';
+        WANT_RESET_B0_IDX <= '0';
+        WANT_RESET_B1_IDX <= DONT_CARE;
         
         if IDX_0_DONE = '1' then
           next_state <= MERGE1_0;
@@ -213,9 +221,9 @@ begin  -- HIGH_LEVEL
         -- Use ++B_IDX as index, into B0
         REG_SELECT <= B_IDX;
         
-        RESET_B_IDX <= '0';
-        RESET_B0_IDX <= '0';
-        RESET_B1_IDX <= DONT_CARE;
+        WANT_RESET_B_IDX <= '0';
+        WANT_RESET_B0_IDX <= '0';
+        WANT_RESET_B1_IDX <= DONT_CARE;
         
         --All data read move to M1_0, else continue reading
         if (IDX_0_DONE = '1') then
@@ -241,9 +249,9 @@ begin  -- HIGH_LEVEL
         -----------------------------------------------------------------------
       when MERGE1_0 =>
         -- Reset B_IDX to 0, since we start indexing from 0       
-        RESET_B_IDX <= '1';
-        RESET_B0_IDX <= DONT_CARE;
-        RESET_B1_IDX <= DONT_CARE;
+        WANT_RESET_B_IDX <= '1';
+        WANT_RESET_B0_IDX <= DONT_CARE;
+        WANT_RESET_B1_IDX <= DONT_CARE;
         
         REG_INC <= '0';                 --Don't add now
         TMP_IDX_INC <= '0';
@@ -267,9 +275,9 @@ begin  -- HIGH_LEVEL
         -- Use B_IDX as index into B1
         REG_SELECT <= B_IDX;
         
-        RESET_B0_IDX <= DONT_CARE;
-        RESET_B1_IDX <= DONT_CARE;
-        RESET_B_IDX <= '0';
+        WANT_RESET_B0_IDX <= DONT_CARE;
+        WANT_RESET_B1_IDX <= DONT_CARE;
+        WANT_RESET_B_IDX <= '0';
         
         --All data read move to M_0, else continue reading
         if (TMP_MAX = '1') then
@@ -295,9 +303,9 @@ begin  -- HIGH_LEVEL
           NEXT_STATE <= BUCKETIZE;
         end if;
 
-        RESET_B_IDX <= DONT_CARE;        
-        RESET_B0_IDX <= '1';
-        RESET_B1_IDX <= '1';
+        WANT_RESET_B_IDX <= DONT_CARE;        
+        WANT_RESET_B0_IDX <= '1';
+        WANT_RESET_B1_IDX <= '1';
         
         tmp_idx_inc <= '0';
         buss_dir <= NONE;
@@ -312,9 +320,9 @@ begin  -- HIGH_LEVEL
         reg_inc <= '0';
         tmp_idx_inc <= '0';
 
-        RESET_B_IDX <= '1';
-        RESET_B0_IDX <= '1';
-        RESET_B1_IDX <= '1';
+        WANT_RESET_B_IDX <= '1';
+        WANT_RESET_B0_IDX <= '1';
+        WANT_RESET_B1_IDX <= '1';
         -----------------------------------------------------------------------
         -- Others, should never happen
         -----------------------------------------------------------------------
